@@ -10,20 +10,26 @@ import { ElephantBoxService, User } from '../services/elephant-box.service';
   providers: [ElephantBoxService]
 })
 export class HeaderComponent implements OnInit {
-  public user: User;
+  public user: User = null;
 
   constructor(
     private elephantBoxService: ElephantBoxService,
-    private router: Router) { }
+    private router: Router) {
+      this.router.events.subscribe(route => {
+        if (this.user === null) {
+          this.bindUser();
+        }
+      });
+    }
 
   ngOnInit() {
+    this.bindUser();
+  }
+
+  private bindUser(): void {
     this.elephantBoxService.getSignedinUser()
-      .then(user => {
-        this.user = user;
-      })
-      .catch(error => {
-        this.user = null;
-      });
+      .then(user => this.user = user)
+      .catch(error => this.user = null);
   }
 
   public signout(): void {

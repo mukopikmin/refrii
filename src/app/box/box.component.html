@@ -1,0 +1,21 @@
+<div *ngIf="box" class="container">
+  <h5>{{box.name}}</h5>
+    <div class="row">
+      <div *ngFor="let room of box.rooms" class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <a [routerLink]="['/boxes', box.id]">{{room.name}}</a>
+          </div>
+          <div class="card-block">
+            <p class="card-text">{{room.notice}}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let food of room.foods" class="list-group-item">
+              {{food.name}}
+            </li>
+          </ul>
+        </div>
+      </div>
+  </div>
+
+</div>

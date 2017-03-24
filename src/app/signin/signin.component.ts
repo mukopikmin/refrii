@@ -22,6 +22,9 @@ export class SigninComponent implements OnInit {
     private elephantBoxService: ElephantBoxService) { }
 
   ngOnInit() {
+    if (this.elephantBoxService.verify()) {
+      this.router.navigate(['/']);
+    }
     this.form = this.formBuilder.group({
       email: ['', [Validators.required]],
       password: []

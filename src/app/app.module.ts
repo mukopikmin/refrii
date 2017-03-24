@@ -15,6 +15,7 @@ import { BoxComponent } from './box/box.component';
 import { AuthGuard } from './auth.guard';
 import { ElephantBoxService } from './services/elephant-box.service';
 import { SignupComponent } from './signup/signup.component';
+import { UserComponent } from './user/user.component';
 
 function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig(), http, options);
@@ -25,6 +26,9 @@ const routes: Routes = [
     path: '',
     redirectTo: '/boxes',
     pathMatch: 'full'
+  }, {
+    path: 'user',
+    component: UserComponent
   }, {
     path: 'signin',
     component: SigninComponent
@@ -49,7 +53,8 @@ const routes: Routes = [
     HeaderComponent,
     SigninComponent,
     BoxComponent,
-    SignupComponent
+    SignupComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

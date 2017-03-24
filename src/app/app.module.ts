@@ -13,7 +13,7 @@ import { HeaderComponent } from './header/header.component';
 import { SigninComponent } from './signin/signin.component';
 import { BoxComponent } from './box/box.component';
 import { AuthGuard } from './auth.guard';
-import { ElephantBoxService } from './services/elephant-box.service';
+import { BoxService } from './services/box.service';
 import { SignupComponent } from './signup/signup.component';
 import { UserComponent } from './user/user.component';
 
@@ -66,7 +66,7 @@ const routes: Routes = [
   ],
   providers: [
     AuthGuard,
-    ElephantBoxService,
+    BoxService,
     {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,

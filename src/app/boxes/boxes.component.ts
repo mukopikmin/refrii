@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ElephantBoxService, Box } from '../services/elephant-box.service';
+import { BoxService, Box } from '../services/box.service';
 
 @Component({
   selector: 'app-boxes',
   templateUrl: './boxes.component.html',
   styleUrls: ['./boxes.component.css'],
-  providers: [ElephantBoxService]
+  providers: [BoxService]
 })
 export class BoxesComponent implements OnInit {
   public boxes: Box[] = [];
 
-  constructor(private elephantBoxService: ElephantBoxService) { }
+  constructor(private boxService: BoxService) { }
 
   ngOnInit() {
-    this.elephantBoxService.getBoxes()
+    this.boxService.getBoxes()
       .then(boxes => {
         this.boxes = boxes;
       });

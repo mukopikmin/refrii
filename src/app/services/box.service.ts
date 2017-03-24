@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
 
 @Injectable()
-export class ElephantBoxService {
+export class BoxService {
   private endpoint: string = environment.endpoint;
 
   constructor(private authHttp: AuthHttp, private http: Http) { }

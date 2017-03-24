@@ -15,15 +15,15 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CanActivate } from '@angular/router';
 
-import { ElephantBoxService } from './services/elephant-box.service';
+import { BoxService } from './services/box.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-  constructor(private router: Router, private elephantBoxService: ElephantBoxService) { }
+  constructor(private router: Router, private boxService: BoxService) { }
 
   canActivate() {
-    if(this.elephantBoxService.verify()) {
+    if(this.boxService.verify()) {
       return true;
     } else {
       this.router.navigate(['/signin']);

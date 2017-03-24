@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ElephantBoxService, User } from '../services/elephant-box.service';
+import { BoxService, User } from '../services/box.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  providers: [ElephantBoxService]
+  providers: [BoxService]
 })
 export class HeaderComponent implements OnInit {
   public user: User = null;
 
   constructor(
-    private elephantBoxService: ElephantBoxService,
+    private boxService: BoxService,
     private router: Router) {
       this.router.events.subscribe(route => {
         if (this.user === null) {
@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
   }
 
   private bindUser(): void {
-    this.elephantBoxService.getSignedinUser()
+    this.boxService.getSignedinUser()
       .then(user => this.user = user)
       .catch(error => this.user = null);
   }

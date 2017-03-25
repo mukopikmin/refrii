@@ -17,7 +17,7 @@ import { BoxService } from './services/box.service';
 import { SignupComponent } from './signup/signup.component';
 import { UserComponent } from './user/user.component';
 
-function authHttpServiceFactory(http: Http, options: RequestOptions) {
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig(), http, options);
 }
 

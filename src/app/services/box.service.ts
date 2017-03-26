@@ -132,6 +132,7 @@ export class Food {
   private name: string;
   private notice: string;
   private amount: number;
+  private unit: string;
   private expirationDate: Date;
   private createdAt: Date;
   private updatedAt: Date;
@@ -141,6 +142,7 @@ export class Food {
     this.name = json.name;
     this.notice = json.notice;
     this.amount = json.amount;
+    this.unit = json.unit;
     this.expirationDate = new Date(json.expiration_date);
     this.createdAt = new Date(json.created_at);
     this.updatedAt = new Date(json.updated_at);

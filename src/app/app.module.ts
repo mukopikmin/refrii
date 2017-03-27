@@ -16,6 +16,8 @@ import { AuthGuard } from './auth.guard';
 import { BoxService } from './services/box.service';
 import { SignupComponent } from './signup/signup.component';
 import { UserComponent } from './user/user.component';
+import { NewBoxComponent } from './new-box/new-box.component';
+import { NewRoomComponent } from './new-room/new-room.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig(), http, options);
@@ -40,6 +42,9 @@ const routes: Routes = [
     component: BoxesComponent,
     canActivate: [AuthGuard]
   }, {
+    path: 'boxes/new',
+    component: NewBoxComponent
+  }, {
     path: 'boxes/:id',
     component: BoxComponent,
     canActivate: [AuthGuard]
@@ -54,7 +59,9 @@ const routes: Routes = [
     SigninComponent,
     BoxComponent,
     SignupComponent,
-    UserComponent
+    UserComponent,
+    NewBoxComponent,
+    NewRoomComponent
   ],
   imports: [
     BrowserModule,

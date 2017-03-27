@@ -85,6 +85,21 @@ export class BoxService {
         console.log(error);
       });
   }
+
+  public createBox(name: string, notice: string): Promise<Box> {
+    const data = new FormData();
+    data.append('name', name);
+    data.append('notice', notice);
+
+    return this.authHttp.post(`${this.endpoint}/boxes`, data)
+      .toPromise()
+      .then(response => {
+        return new Box(response.json());
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
 }
 
 export class Box {
@@ -107,6 +122,10 @@ export class Box {
       return new Room(room);
     });
   }
+
+  public getId(): number {
+    return this.id;
+  }
 }
 
 export class User {
@@ -122,6 +141,10 @@ export class User {
     this.email = json.email;
     this.createdAt = new Date(json.created_at);
     this.updatedAt = new Date(json.updated_at);
+  }
+
+  public getId(): number {
+    return this.id;
   }
 }
 

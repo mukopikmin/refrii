@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { BoxService, Box } from '../services/box.service';
 
@@ -11,7 +12,9 @@ import { BoxService, Box } from '../services/box.service';
 export class BoxesComponent implements OnInit {
   public boxes: Box[] = [];
 
-  constructor(private boxService: BoxService) { }
+  constructor(
+    private router: Router,
+    private boxService: BoxService) { }
 
   ngOnInit() {
     this.boxService.getBoxes()
@@ -20,4 +23,7 @@ export class BoxesComponent implements OnInit {
       });
   }
 
+  public createBox(): void {
+    this.router.navigate(['/boxes', 'new'])
+  }
 }

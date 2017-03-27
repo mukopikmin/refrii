@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, URLSearchParams } from '@angular/http';
 import { AuthHttp, tokenNotExpired } from 'angular2-jwt';
 import 'rxjs/add/operator/toPromise';
 
@@ -21,6 +21,24 @@ export class BoxService {
       .then(response => {
         return new User(response.json());
       })
+  }
+
+  public signup(name: string, email: string, password: string, passwordConfirm: string): Promise<User> {
+    const url = `${this.endpoint}/users`;
+    const data = new URLSearchParams();
+    data.append('name', name);
+    data.append('email', email);
+    data.append('password', password);
+    data.append('password_confirmation', passwordConfirm);
+
+    return this.http.post(url, data)
+      .toPromise()
+      .then(response => {
+        return new User(response.json());
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   public auth(email: string, password: string): any {

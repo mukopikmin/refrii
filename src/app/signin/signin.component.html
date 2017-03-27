@@ -14,7 +14,7 @@
           <label for="password">Password</label>
           <input type="password" class="form-control" id="password" placeholder="Password" [formControl]="form.controls['password']">
         </div>
-        <input type="submit" class="btn btn-outline-success btn-block">
+        <input type="submit" class="btn btn-outline-success btn-block" [formControl]="form.controls['submit']">
       </form>
 
       <div class="message">

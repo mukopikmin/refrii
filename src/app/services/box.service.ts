@@ -20,7 +20,7 @@ export class BoxService {
       .toPromise()
       .then(response => {
         return new User(response.json());
-      })
+      });
   }
 
   public signup(name: string, email: string, password: string, passwordConfirm: string): Promise<User> {
@@ -99,6 +99,23 @@ export class BoxService {
       .catch(error => {
         console.log(error);
       })
+  }
+
+  public createRoom(name: string, notice: string, box: Box): Promise<Room> {
+    const url = `${this.endpoint}/rooms`;
+    const data = new FormData();
+    data.append('name', name);
+    data.append('notice', notice);
+    data.append('box_id', box.getId());
+
+    return this.authHttp.post(url, data)
+      .toPromise()
+      .then(response => {
+        return new Room(response.json());
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 }
 

@@ -43,10 +43,15 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   }, {
     path: 'boxes/new',
-    component: NewBoxComponent
+    component: NewBoxComponent,
+    canActivate: [AuthGuard]
   }, {
     path: 'boxes/:id',
     component: BoxComponent,
+    canActivate: [AuthGuard]
+  }, {
+    path: 'boxes/:id/rooms/new',
+    component: NewRoomComponent,
     canActivate: [AuthGuard]
   }
 ];

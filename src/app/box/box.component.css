@@ -1,3 +1,12 @@
 .amount {
   text-align: right;
 }
+
+.card {
+  margin-bottom: 10px;
+}
+
+button {
+  font-size: 300%;
+  height: 100px;
+}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Params, ActivatedRoute } from '@angular/router';
+import { Params, ActivatedRoute, Router } from '@angular/router';
 
 import { BoxService, Box} from '../services/box.service';
 
@@ -14,7 +14,10 @@ export class BoxComponent implements OnInit {
 
   private id: number;
 
-  constructor(private route: ActivatedRoute, private boxService: BoxService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private boxService: BoxService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -22,7 +25,10 @@ export class BoxComponent implements OnInit {
     });
     this.boxService.getBox(this.id).then(box => {
       this.box = box;
-    })
+    });
   }
 
+  public createRoom(): void {
+    this.router.navigate(['/boxes', this.id, 'rooms', 'new']);
+  }
 }

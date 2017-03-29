@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams } from '@angular/http';
+import { DatePipe } from '@angular/common';
 import { AuthHttp, tokenNotExpired } from 'angular2-jwt';
 import 'rxjs/add/operator/toPromise';
 
@@ -9,7 +10,10 @@ import { environment } from '../../environments/environment';
 export class BoxService {
   private endpoint: string = environment.endpoint;
 
-  constructor(private authHttp: AuthHttp, private http: Http) { }
+  constructor(
+    private authHttp: AuthHttp,
+    private http: Http,
+    private datePipe: DatePipe) { }
 
   public verify(): boolean {
     return tokenNotExpired();
@@ -117,6 +121,49 @@ export class BoxService {
         console.log(error);
       });
   }
+
+  public createFood(name: string, notice: string, amount: number, expirationDate: Date, unit: Unit): Promise<Food> {
+    const url = `${this.endpoint}/foods`;
+    const data = new FormData();
+    data.append('name', name);
+    data.append('notice', notice);
+    data.append('amount', amount);
+    data.append('expiration_date', this.datePipe.transform(expirationDate, 'yyyy-MM-dd'));
+    data.append('unit_id', unit.getId());
+
+    return this.authHttp.post(url, data)
+    .toPromise()
+    .then(response => {
+      return new Food(response.json());
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
+  public getUnits(): Promise<Unit[]> {
+    return this.authHttp.get(`${this.endpoint}/units`)
+      .toPromise()
+      .then(response => {
+        return response.json().map(json => new Unit(json));
+      })
+      .catch(error => console.log(error));
+  }
+
+  public createUnit(label: string): Promise<Unit> {
+    const url = `${this.endpoint}/units`;
+    const data = new FormData();
+    data.append('label', label);
+
+    return this.authHttp.post(url, data)
+      .toPromise()
+      .then(response => {
+        return new Unit(response.json());
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 }
 
 export class Box {
@@ -190,7 +237,7 @@ export class Food {
   private name: string;
   private notice: string;
   private amount: number;
-  private unit: string;
+  private unit: Unit;
   private expirationDate: Date;
   private createdAt: Date;
   private updatedAt: Date;
@@ -200,9 +247,27 @@ export class Food {
     this.name = json.name;
     this.notice = json.notice;
     this.amount = json.amount;
-    this.unit = json.unit;
+    this.unit = new Unit(json.unit);
     this.expirationDate = new Date(json.expiration_date);
     this.createdAt = new Date(json.created_at);
     this.updatedAt = new Date(json.updated_at);
+  }
+}
+
+export class Unit {
+  private id: number;
+  private label: string;
+  private createdAt: Date;
+  private updatedAt: Date;
+
+  constructor(json) {
+    this.id = json.id;
+    this.label = json.label;
+    this.createdAt = new Date(json.created_at);
+    this.updatedAt = new Date(json.updated_at);
+  }
+
+  public getId(): number {
+    return this.id;
   }
 }

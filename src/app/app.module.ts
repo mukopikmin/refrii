@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { Http, RequestOptions } from '@angular/http';
+import { DatePipe } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { BoxesComponent } from './boxes/boxes.component';
@@ -18,6 +19,8 @@ import { SignupComponent } from './signup/signup.component';
 import { UserComponent } from './user/user.component';
 import { NewBoxComponent } from './new-box/new-box.component';
 import { NewRoomComponent } from './new-room/new-room.component';
+import { NewFoodComponent } from './new-food/new-food.component';
+import { NewUnitComponent } from './new-unit/new-unit.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig(), http, options);
@@ -30,13 +33,18 @@ const routes: Routes = [
     pathMatch: 'full'
   }, {
     path: 'user',
-    component: UserComponent
+    component: UserComponent,
+    canActivate: [AuthGuard]
   }, {
     path: 'signin',
     component: SigninComponent
   }, {
     path: 'signup',
     component: SignupComponent
+  }, {
+    path: 'units/new',
+    component: NewUnitComponent,
+    canActivate: [AuthGuard]
   }, {
     path: 'boxes',
     component: BoxesComponent,
@@ -53,6 +61,10 @@ const routes: Routes = [
     path: 'boxes/:id/rooms/new',
     component: NewRoomComponent,
     canActivate: [AuthGuard]
+  }, {
+    path: 'boxes/:id/rooms/:id/foods/new',
+    component: NewFoodComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
@@ -66,7 +78,9 @@ const routes: Routes = [
     SignupComponent,
     UserComponent,
     NewBoxComponent,
-    NewRoomComponent
+    NewRoomComponent,
+    NewFoodComponent,
+    NewUnitComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +97,8 @@ const routes: Routes = [
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,
       deps: [Http, RequestOptions]
-    }
+    },
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

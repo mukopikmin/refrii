@@ -18,7 +18,6 @@ import { BoxService } from './services/box.service';
 import { SignupComponent } from './signup/signup.component';
 import { UserComponent } from './user/user.component';
 import { NewBoxComponent } from './new-box/new-box.component';
-import { NewRoomComponent } from './new-room/new-room.component';
 import { NewFoodComponent } from './new-food/new-food.component';
 import { NewUnitComponent } from './new-unit/new-unit.component';
 
@@ -58,11 +57,7 @@ const routes: Routes = [
     component: BoxComponent,
     canActivate: [AuthGuard]
   }, {
-    path: 'boxes/:id/rooms/new',
-    component: NewRoomComponent,
-    canActivate: [AuthGuard]
-  }, {
-    path: 'boxes/:id/rooms/:id/foods/new',
+    path: 'boxes/:id/foods/new',
     component: NewFoodComponent,
     canActivate: [AuthGuard]
   }
@@ -78,7 +73,6 @@ const routes: Routes = [
     SignupComponent,
     UserComponent,
     NewBoxComponent,
-    NewRoomComponent,
     NewFoodComponent,
     NewUnitComponent
   ],

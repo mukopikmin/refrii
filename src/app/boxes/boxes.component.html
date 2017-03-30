@@ -9,8 +9,8 @@
           <p class="card-text">{{box.notice}}</p>
         </div>
         <ul class="list-group list-group-flush">
-          <li *ngFor="let room of box.rooms" class="list-group-item">
-            {{room.name}} ({{room.foods.length}} items)
+          <li *ngFor="let food of box.foods" class="list-group-item">
+            {{food.name}} ({{food.expirationDate | date: 'yyyy/MM/dd'}})
           </li>
         </ul>
       </div>

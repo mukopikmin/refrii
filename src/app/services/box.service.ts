@@ -105,24 +105,7 @@ export class BoxService {
       })
   }
 
-  public createRoom(name: string, notice: string, box: Box): Promise<Room> {
-    const url = `${this.endpoint}/rooms`;
-    const data = new FormData();
-    data.append('name', name);
-    data.append('notice', notice);
-    data.append('box_id', box.getId());
-
-    return this.authHttp.post(url, data)
-      .toPromise()
-      .then(response => {
-        return new Room(response.json());
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-
-  public createFood(name: string, notice: string, amount: number, expirationDate: Date, unit: Unit): Promise<Food> {
+  public createFood(name: string, notice: string, amount: number, expirationDate: Date, unit: Unit, box: Box): Promise<Food> {
     const url = `${this.endpoint}/foods`;
     const data = new FormData();
     data.append('name', name);
@@ -130,15 +113,16 @@ export class BoxService {
     data.append('amount', amount);
     data.append('expiration_date', this.datePipe.transform(expirationDate, 'yyyy-MM-dd'));
     data.append('unit_id', unit.getId());
+    data.append('box_id', box.getId());
 
     return this.authHttp.post(url, data)
-    .toPromise()
-    .then(response => {
-      return new Food(response.json());
-    })
-    .catch(error => {
-      console.log(error);
-    });
+      .toPromise()
+      .then(response => {
+        return new Food(response.json());
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   public getUnits(): Promise<Unit[]> {
@@ -173,7 +157,7 @@ export class Box {
   private createdAt: Date;
   private updatedAt: Date;
   private owner: User;
-  private rooms: Room[];
+  private foods: Food[];
 
   constructor(json: any) {
     this.id = json.id;
@@ -182,8 +166,8 @@ export class Box {
     this.createdAt = new Date(json.created_at);
     this.updatedAt = new Date(json.updated_at);
     this.owner = new User(json.owner);
-    this.rooms = json.rooms.map(room => {
-      return new Room(room);
+    this.foods = json.foods.map(food => {
+      return new Food(food);
     });
   }
 
@@ -212,26 +196,6 @@ export class User {
   }
 }
 
-export class Room {
-  private id: number;
-  private name: string;
-  private notice: string;
-  private createdAt: Date;
-  private updatedAt: Date;
-  private foods: Food[];
-
-  constructor(json: any) {
-    this.id = json.id;
-    this.name = json.name;
-    this.notice = json.notice;
-    this.createdAt = new Date(json.created_at);
-    this.updatedAt = new Date(json.updated_at);
-    this.foods = json.foods.map(food => {
-      return new Food(food);
-    });
-  }
-}
-
 export class Food {
   private id: number;
   private name: string;
@@ -251,6 +215,10 @@ export class Food {
     this.expirationDate = new Date(json.expiration_date);
     this.createdAt = new Date(json.created_at);
     this.updatedAt = new Date(json.updated_at);
+  }
+
+  public getId(): number {
+    return this.id;
   }
 }
 

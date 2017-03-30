@@ -28,11 +28,7 @@ export class BoxComponent implements OnInit {
     });
   }
 
-  public createRoom(): void {
-    this.router.navigate(['/boxes', this.id, 'rooms', 'new']);
-  }
-
   public createFood(roomId: number): void {
-    this.router.navigate(['/boxes', this.id, 'rooms', roomId, 'foods', 'new']);
+    this.router.navigate(['/boxes', this.id, 'foods', 'new']);
   }
 }

@@ -33,7 +33,7 @@ export class NewUnitComponent implements OnInit {
     }
     const params = form.value;
 
-    this.boxService.createUnit(params.name)
+    this.boxService.createUnit(params.label)
       .then(unit => {
         this.router.navigate(['/user']);
       })

@@ -4,11 +4,13 @@
     <div *ngFor="let food of box.foods" class="col-md-4">
       <div class="card">
         <div class="card-header">
-          {{food.name}}
+          {{food.id}}: {{food.name}}
         </div>
         <div class="card-block">
           <p class="card-text">{{food.notice}}</p>
+          <p>{{food.amount}} {{food.unit.label}}</p>
         </div>
+        <button class="btn btn-block btn-outline-danger" (click)="removeFood(food)">Remove</button>
         <div class="card-footer text-muted">
           Last update {{food.updatedAt | date: 'yyyy/MM/dd HH:mm'}}
         </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Params, ActivatedRoute, Router } from '@angular/router';
 
-import { BoxService, Box} from '../services/box.service';
+import { BoxService, Box, Food } from '../services/box.service';
 
 @Component({
   selector: 'app-box',
@@ -30,5 +30,15 @@ export class BoxComponent implements OnInit {
 
   public createFood(roomId: number): void {
     this.router.navigate(['/boxes', this.id, 'foods', 'new']);
+  }
+
+  public removeFood(food: Food): void {
+    this.boxService.removeFood(food)
+      .then(() => {
+        return this.boxService.getBox(this.id)
+      })
+      .then(box => {
+        this.box = box;
+      });
   }
 }

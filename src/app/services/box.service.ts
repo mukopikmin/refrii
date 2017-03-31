@@ -125,6 +125,15 @@ export class BoxService {
       });
   }
 
+  public removeFood(food: Food): Promise<void> {
+    return this.authHttp.delete(`${this.endpoint}/foods/${food.getId()}`)
+      .toPromise()
+      .then(response => {
+        return;
+      })
+      .catch(error => console.log(error));
+  }
+
   public getUnits(): Promise<Unit[]> {
     return this.authHttp.get(`${this.endpoint}/units`)
       .toPromise()

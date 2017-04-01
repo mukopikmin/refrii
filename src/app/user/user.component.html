@@ -1,6 +1,9 @@
 <div class="container">
   <h3>Units</h3>
   <ul>
-    <li *ngFor="let unit of units">{{unit.label}}</li>
+    <li *ngFor="let unit of units">
+      {{unit.label}} ({{unit.foods.length}} foods are labeled)
+      <button class="btn btn-outline-danger" (click)="removeUnit(unit)" [disabled]="unit.foods.length !== 0">Remove</button>
+    </li>
   </ul>
 </div>

@@ -16,4 +16,11 @@ export class UserComponent implements OnInit {
     this.boxService.getUnits().then(units => this.units = units);
   }
 
+  public removeUnit(unit: Unit): void {
+    this.boxService.removeUnit(unit)
+      .then(() => {
+        return this.boxService.getUnits();
+      })
+      .then(units => this.units = units);
+  }
 }

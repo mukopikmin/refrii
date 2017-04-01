@@ -157,6 +157,15 @@ export class BoxService {
         console.log(error);
       });
   }
+
+  public removeUnit(unit: Unit): Promise<void> {
+    return this.authHttp.delete(`${this.endpoint}/units/${unit.getId()}`)
+      .toPromise()
+      .then(response => {
+        return;
+      })
+      .catch(error => console.log(error));
+  }
 }
 
 export class Box {
@@ -210,7 +219,7 @@ export class Food {
   private name: string;
   private notice: string;
   private amount: number;
-  private unit: Unit;
+  private unitLabel: string;
   private expirationDate: Date;
   private createdAt: Date;
   private updatedAt: Date;
@@ -220,7 +229,7 @@ export class Food {
     this.name = json.name;
     this.notice = json.notice;
     this.amount = json.amount;
-    this.unit = new Unit(json.unit);
+    this.unitLabel = json.unit_label;
     this.expirationDate = new Date(json.expiration_date);
     this.createdAt = new Date(json.created_at);
     this.updatedAt = new Date(json.updated_at);
@@ -234,12 +243,14 @@ export class Food {
 export class Unit {
   private id: number;
   private label: string;
+  private foods: Food[];
   private createdAt: Date;
   private updatedAt: Date;
 
   constructor(json) {
     this.id = json.id;
     this.label = json.label;
+    this.foods = json.foods.map(food => new Food(food));
     this.createdAt = new Date(json.created_at);
     this.updatedAt = new Date(json.updated_at);
   }

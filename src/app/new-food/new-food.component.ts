@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Params, ActivatedRoute, Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 import { BoxService, Box, Unit } from '../services/box.service';
 
@@ -21,6 +22,7 @@ export class NewFoodComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private datePipe: DatePipe,
     private boxService: BoxService) { }
 
   ngOnInit() {
@@ -32,9 +34,9 @@ export class NewFoodComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
       notice: [],
-      amount: [],
-      expirationDate: [],
-      unit: [],
+      amount: [0, [Validators.required]],
+      expirationDate: [this.datePipe.transform(new Date(), 'yyyy-MM-dd'), [Validators.required]],
+      unit: ['', [Validators.required]],
       submit: ['Add new food']
     });
   }

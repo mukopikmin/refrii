@@ -166,6 +166,15 @@ export class BoxService {
       })
       .catch(error => console.log(error));
   }
+
+  public removeBox(box: Box): Promise<void> {
+    return this.authHttp.delete(`${this.endpoint}/boxes/${box.getId()}`)
+      .toPromise()
+      .then(respones => {
+        return;
+      })
+      .catch(error => console.log(error));
+  }
 }
 
 export class Box {
@@ -191,6 +200,10 @@ export class Box {
 
   public getId(): number {
     return this.id;
+  }
+
+  public getFoods(): Food[] {
+    return this.foods;
   }
 }
 

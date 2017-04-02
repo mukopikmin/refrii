@@ -1,7 +1,6 @@
 <div class="container">
-  <div class="row">
-    <div *ngFor="let box of boxes" class="col-md-4">
-      <div class="card">
+    <div class="card-columns">
+      <div *ngFor="let box of boxes" class="card">
         <div class="card-header">
           <a [routerLink]="['/boxes', box.id]">{{box.name}}</a>
         </div>
@@ -15,8 +14,4 @@
         </ul>
       </div>
     </div>
-    <div class="col-md-4">
-      <button type="button" class="btn btn-outline-primary btn-lg btn-block" (click)="createBox()">+</button>
-    </div>
   </div>
-</div>

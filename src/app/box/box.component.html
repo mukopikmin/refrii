@@ -9,6 +9,7 @@
         <div class="card-block">
           <p class="card-text">{{food.notice}}</p>
           <p>{{food.amount}} {{food.unitLabel}}</p>
+          <p>{{food.expirationDate | date: 'yyyy/MM/dd'}}</p>
         </div>
         <button class="btn btn-block btn-outline-danger" (click)="removeFood(food)">Remove</button>
         <div class="card-footer text-muted">

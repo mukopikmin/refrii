@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { BoxService, Unit } from '../services/box.service';
+import { BoxService, User, Unit } from '../services/box.service';
 
 @Component({
   selector: 'app-user',
@@ -8,11 +9,13 @@ import { BoxService, Unit } from '../services/box.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+  public user: User;
   public units: Unit[] = [];
 
-  constructor(private boxService: BoxService) { }
+  constructor(private router: Router, private boxService: BoxService) { }
 
   ngOnInit() {
+    this.boxService.getSignedinUser().then(user => this.user = user);
     this.boxService.getUnits().then(units => this.units = units);
   }
 
@@ -22,5 +25,9 @@ export class UserComponent implements OnInit {
         return this.boxService.getUnits();
       })
       .then(units => this.units = units);
+  }
+
+  public createUnit(): void {
+    this.router.navigate(['/units', 'new']);
   }
 }

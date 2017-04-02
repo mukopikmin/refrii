@@ -81,7 +81,7 @@ const routes: Routes = [
     FormsModule,
     HttpModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes, { useHash: true }),
+    RouterModule.forRoot(routes),
     NgbModule.forRoot()
   ],
   providers: [

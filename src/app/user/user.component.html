@@ -28,19 +28,34 @@
         Service usage
       </div>
       <div class="card-block">
-        You are using {{boxes.length}} boxes.
+        You are using {{ownBoxes.length}} boxes.
         <button class="btn btn-sm btn-outline-success" (click)="createBox()">Add box</button>
       </div>
       <table class="table">
-        <tr>
-          <th>Box name</th>
-          <th>Foods</th>
-          <th></th>
-          <th></th>
-        </tr>
-        <tr *ngFor="let box of boxes">
+        <tr *ngFor="let box of ownBoxes">
           <td>{{box.name}}</td>
-          <td>{{box.foods.length}}</td>
+          <td>{{box.foods.length}} foods</td>
+          <td>
+            <button class="btn btn-outline-info btn-block btn-sm">Edit</button>
+          </td>
+          <td>
+            <button class="btn btn-outline-danger btn-sm" (click)="removeBox(box)" [disabled]="box.foods.length > 0">Remove</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        Invited boxes usage
+      </div>
+      <div class="card-block">
+        You are using {{invitedBoxes.length}} invited boxes.
+      </div>
+      <table class="table">
+        <tr *ngFor="let box of invitedBoxes">
+          <td>{{box.name}}</td>
+          <td>{{box.foods.length}} foods</td>
           <td>
             <button class="btn btn-outline-info btn-block btn-sm">Edit</button>
           </td>

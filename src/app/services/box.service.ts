@@ -20,7 +20,7 @@ export class BoxService {
   }
 
   public getSignedinUser(): Promise<User> {
-    return this.authHttp.get(`${this.endpoint}/verify`)
+    return this.authHttp.get(`${this.endpoint}/users/verify`)
       .toPromise()
       .then(response => {
         return new User(response.json());
@@ -66,8 +66,18 @@ export class BoxService {
       });
   }
 
-  public getBoxes(): Promise<Box[]> {
-    return this.authHttp.get(`${this.endpoint}/boxes`)
+  public getBoxes(boxType: number = BoxType.Available): Promise<Box[]> {
+    let url = `${this.endpoint}/boxes`;
+    switch (boxType) {
+      case BoxType.Owns:
+        url = `${url}/owns`;
+        break;
+      case BoxType.Invited:
+        url = `${url}/invited`;
+        break;
+    }
+
+    return this.authHttp.get(url)
       .toPromise()
       .then(response => {
         return response.json().map(box => {
@@ -271,4 +281,10 @@ export class Unit {
   public getId(): number {
     return this.id;
   }
+}
+
+export enum BoxType {
+  Available,
+  Owns,
+  Invited
 }

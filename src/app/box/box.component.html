@@ -8,9 +8,17 @@
         </div>
         <div class="card-block">
           <p class="card-text">{{food.notice}}</p>
-          <p>{{food.amount}} {{food.unitLabel}}</p>
-          <p>{{food.expirationDate | date: 'yyyy/MM/dd'}}</p>
         </div>
+        <table class="table">
+          <tr>
+            <td>Amount</td>
+            <td>{{food.amount | number: '1.0-1'}} {{food.unitLabel}}</td>
+          </tr>
+          <tr>
+            <td>Expiration date</td>
+            <td>{{food.expirationDate | date: 'yyyy/MM/dd HH:mm'}}</td>
+          </tr>
+        </table>
         <button class="btn btn-block btn-outline-danger" (click)="removeFood(food)">Remove</button>
         <div class="card-footer text-muted">
           Last update {{food.updatedAt | date: 'yyyy/MM/dd HH:mm'}}

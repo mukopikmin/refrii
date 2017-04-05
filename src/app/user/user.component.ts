@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BoxService, Box, User, Unit, Food } from '../services/box.service';
+import { BoxService, Box, User, Unit, Food, BoxType } from '../services/box.service';
 
 @Component({
   selector: 'app-user',
@@ -10,7 +10,8 @@ import { BoxService, Box, User, Unit, Food } from '../services/box.service';
 })
 export class UserComponent implements OnInit {
   public user: User;
-  public boxes: Box[] = [];
+  public ownBoxes: Box[] = [];
+  public invitedBoxes: Box[] = [];
   public units: Unit[] = [];
 
   constructor(private router: Router, private boxService: BoxService) { }
@@ -19,10 +20,14 @@ export class UserComponent implements OnInit {
     this.boxService.getSignedinUser()
       .then(user => {
         this.user = user;
-        return this.boxService.getBoxes();
+        return Promise.all([
+          this.boxService.getBoxes(BoxType.Owns),
+          this.boxService.getBoxes(BoxType.Invited)
+        ]);
       })
-      .then(boxes => {
-        this.boxes = boxes;
+      .then(result => {
+        this.ownBoxes = result[0];
+        this.invitedBoxes = result[1];
       });
     this.boxService.getUnits().then(units => this.units = units);
   }
@@ -42,9 +47,15 @@ export class UserComponent implements OnInit {
   public removeBox(box: Box): void {
     this.boxService.removeBox(box)
       .then(() => {
-        return this.boxService.getBoxes();
+        return Promise.all([
+          this.boxService.getBoxes(BoxType.Owns),
+          this.boxService.getBoxes(BoxType.Invited)
+        ]);
       })
-      .then(boxes => this.boxes = boxes);
+      .then(result => {
+        this.ownBoxes = result[0];
+        this.invitedBoxes = result[1];
+      });
   }
 
   public createBox(): void {

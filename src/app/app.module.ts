@@ -20,6 +20,7 @@ import { UserComponent } from './user/user.component';
 import { NewBoxComponent } from './new-box/new-box.component';
 import { NewFoodComponent } from './new-food/new-food.component';
 import { NewUnitComponent } from './new-unit/new-unit.component';
+import { InviteComponent } from './invite/invite.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig(), http, options);
@@ -57,6 +58,10 @@ const routes: Routes = [
     component: BoxComponent,
     canActivate: [AuthGuard]
   }, {
+    path: 'boxes/:id/invite',
+    component: InviteComponent,
+    canActivate: [AuthGuard]
+  }, {
     path: 'boxes/:id/foods/new',
     component: NewFoodComponent,
     canActivate: [AuthGuard]
@@ -74,7 +79,8 @@ const routes: Routes = [
     UserComponent,
     NewBoxComponent,
     NewFoodComponent,
-    NewUnitComponent
+    NewUnitComponent,
+    InviteComponent
   ],
   imports: [
     BrowserModule,

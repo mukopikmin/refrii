@@ -185,6 +185,31 @@ export class BoxService {
       })
       .catch(error => console.log(error));
   }
+
+  public getUserByEmail(email: string): Promise<User> {
+    const url = `${this.endpoint}/users/search`;
+    const params: URLSearchParams = new URLSearchParams();
+    params.set('email', email);
+
+    return this.authHttp.get(url, { search: params})
+      .toPromise()
+      .then(response => {
+        return new User(response.json());
+      })
+      .catch(error => console.log(error));
+  }
+
+  public inviteUser(user: User, box: Box): Promise<void> {
+    const url = `${this.endpoint}/boxes/${box.getId()}/invite`;
+    const data = new FormData();
+    data.append('user_id', user.getId());
+
+    return this.authHttp.post(url, data)
+      .toPromise()
+      .then(response => {
+        return;
+      });
+  }
 }
 
 export class Box {

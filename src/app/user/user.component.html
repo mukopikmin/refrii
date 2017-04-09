@@ -36,7 +36,10 @@
           <td>{{box.name}}</td>
           <td>{{box.foods.length}} foods</td>
           <td>
-            <button class="btn btn-outline-info btn-block btn-sm">Edit</button>
+            <button class="btn btn-outline-info btn-sm">Edit</button>
+          </td>
+          <td>
+            <button class="btn btn-outline-success btn-sm" (click)="invite(box)">Invite</button>
           </td>
           <td>
             <button class="btn btn-outline-danger btn-sm" (click)="removeBox(box)" [disabled]="box.foods.length > 0">Remove</button>
@@ -56,12 +59,6 @@
         <tr *ngFor="let box of invitedBoxes">
           <td>{{box.name}}</td>
           <td>{{box.foods.length}} foods</td>
-          <td>
-            <button class="btn btn-outline-info btn-block btn-sm">Edit</button>
-          </td>
-          <td>
-            <button class="btn btn-outline-danger btn-sm" (click)="removeBox(box)" [disabled]="box.foods.length > 0">Remove</button>
-          </td>
         </tr>
       </table>
     </div>

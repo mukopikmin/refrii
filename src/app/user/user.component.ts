@@ -61,4 +61,8 @@ export class UserComponent implements OnInit {
   public createBox(): void {
     this.router.navigate(['/boxes', 'new']);
   }
+
+  public invite(box: Box): void {
+    this.router.navigate(['/boxes', box.getId(), 'invite']);
+  }
 }

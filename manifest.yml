@@ -1,0 +1,10 @@
+applications:
+- name: elephant-box
+  instances: 1
+  memory: 16M
+  disk_quota: 1024M
+  routes:
+  - route: elephant-box.mybluemix.net
+  buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
+  stack: cflinuxfs2
+  path: dist

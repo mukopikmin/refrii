@@ -1,10 +1,12 @@
 <div *ngIf="box" class="container">
-  <h5>{{box.name}}</h5>
+  <h4>{{box.name}}</h4>
+
+  <h5>All</h5>
   <div class="row">
-    <div *ngFor="let food of box.foods" class="col-md-4">
+    <div *ngFor="let food of box.foods" class="col-lg-4 col-sm-6">
       <div class="card">
         <div class="card-header">
-          {{food.name}}
+          <a [routerLink]="['/foods', food.id]">{{food.name}}</a>
         </div>
         <div class="card-block">
           <p class="card-text">{{food.notice}}</p>
@@ -15,14 +17,10 @@
             <td>{{food.amount | number: '1.0-1'}} {{food.unitLabel}}</td>
           </tr>
           <tr>
-            <td>Expiration date</td>
-            <td>{{food.expirationDate | date: 'yyyy/MM/dd HH:mm'}}</td>
+            <td>Expiration</td>
+            <td>{{food.expirationDate | date: 'yyyy/MM/dd'}}</td>
           </tr>
         </table>
-        <button class="btn btn-block btn-outline-danger" (click)="removeFood(food)">Remove</button>
-        <div class="card-footer text-muted">
-          Last update {{food.updatedAt | date: 'yyyy/MM/dd HH:mm'}}
-        </div>
       </div>
     </div>
     <div class="col-md-4">

@@ -1,22 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BoxService, User } from '../services/box.service';
+import { AuthService } from '../services/auth.service';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  providers: [BoxService]
+  providers: [AuthService]
 })
 export class HeaderComponent implements OnInit {
-  public user: User = null;
+  public user: User;
 
   constructor(
-    private boxService: BoxService,
+    private authService: AuthService,
     private router: Router) {
       this.router.events.subscribe(route => {
-        if (this.user === null) {
+        if (!this.user) {
           this.bindUser();
         }
       });
@@ -27,7 +28,7 @@ export class HeaderComponent implements OnInit {
   }
 
   private bindUser(): void {
-    this.boxService.getSignedinUser()
+    this.authService.getSignedinUser()
       .then(user => this.user = user)
       .catch(error => this.user = null);
   }

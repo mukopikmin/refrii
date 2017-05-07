@@ -7,7 +7,8 @@ import { BoxService } from '../services/box.service';
 @Component({
   selector: 'app-new-box',
   templateUrl: './new-box.component.html',
-  styleUrls: ['./new-box.component.css']
+  styleUrls: ['./new-box.component.css'],
+  providers: [BoxService]
 })
 export class NewBoxComponent implements OnInit {
   public form: FormGroup;

@@ -2,12 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { BoxService, Box, User } from '../services/box.service';
+import { UserService } from '../services/user.service';
+import { BoxService } from '../services/box.service';
+import { Box } from '../models/box';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-invite',
   templateUrl: './invite.component.html',
-  styleUrls: ['./invite.component.css']
+  styleUrls: ['./invite.component.css'],
+  providers: [
+    UserService,
+    BoxService
+  ]
 })
 export class InviteComponent implements OnInit {
   public form: FormGroup;
@@ -19,6 +26,7 @@ export class InviteComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
+    private userService: UserService,
     private boxService: BoxService) { }
 
   ngOnInit() {
@@ -39,7 +47,7 @@ export class InviteComponent implements OnInit {
       return;
     }
 
-    this.boxService.getUserByEmail(form.value.email)
+    this.userService.getUserByEmail(form.value.email)
       .then(user => {
         return this.boxService.inviteUser(user, this.box);
       })

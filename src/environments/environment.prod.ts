@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  endpoint: 'https://elephant-box-api.mybluemix.net'
+  endpoint: 'https://refrii.herokuapp.com'
 };

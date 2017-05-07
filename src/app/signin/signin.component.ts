@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { BoxService } from '../services/box.service';
-import { environment } from '../../environments/environment';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css'],
-  providers: [BoxService]
+  providers: [AuthService]
 })
 export class SigninComponent implements OnInit {
   public form: FormGroup;
@@ -19,10 +18,10 @@ export class SigninComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private boxService: BoxService) { }
+    private authService: AuthService) { }
 
   ngOnInit() {
-    if (this.boxService.verify()) {
+    if (this.authService.verify()) {
       this.router.navigate(['/']);
     }
     this.form = this.formBuilder.group({
@@ -37,13 +36,11 @@ export class SigninComponent implements OnInit {
       this.isFailed = true;
       return;
     }
-    this.boxService.auth(form.value.email, form.value.password)
+    this.authService.auth(form.value.email, form.value.password)
       .then(cred => {
         localStorage.setItem('id_token', cred.jwt);
         this.router.navigate(['/']);
       })
-      .catch(error => {
-        this.isFailed = true;;
-      });
+      .catch(error => { this.isFailed = true });
   }
 }

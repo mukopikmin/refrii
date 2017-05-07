@@ -3,12 +3,21 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Params, ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 
-import { BoxService, Box, Unit } from '../services/box.service';
+import { BoxService } from '../services/box.service';
+import { FoodService } from '../services/food.service';
+import { UnitService } from '../services/unit.service';
+import { Box } from '../models/box';
+import { Unit } from '../models/unit';
 
 @Component({
   selector: 'app-new-food',
   templateUrl: './new-food.component.html',
-  styleUrls: ['./new-food.component.css']
+  styleUrls: ['./new-food.component.css'],
+  providers: [
+    BoxService,
+    FoodService,
+    UnitService
+  ]
 })
 export class NewFoodComponent implements OnInit {
   public form: FormGroup;
@@ -23,13 +32,15 @@ export class NewFoodComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private datePipe: DatePipe,
-    private boxService: BoxService) { }
+    private boxService: BoxService,
+    private foodService: FoodService,
+    private unitService: UnitService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
-    this.boxService.getUnits().then(units => this.units = units);
+    this.unitService.getUnits().then(units => this.units = units);
     this.boxService.getBox(this.id).then(box => this.box = box);
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
@@ -50,7 +61,7 @@ export class NewFoodComponent implements OnInit {
     const unit = this.units.filter(unit => unit.getId() === Number(params.unit))[0];
     const date = new Date(params.expirationDate);
 
-    this.boxService.createFood(params.name, params.notice, params.amount, date, unit, this.box)
+    this.foodService.createFood(params.name, params.notice, params.amount, date, unit, this.box)
       .then(food => {
         this.router.navigate(['/boxes', this.box.getId()]);
       })

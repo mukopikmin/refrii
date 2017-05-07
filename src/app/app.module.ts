@@ -8,19 +8,21 @@ import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { Http, RequestOptions } from '@angular/http';
 import { DatePipe } from '@angular/common';
 
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './auth.guard';
+
 import { AppComponent } from './app.component';
 import { BoxesComponent } from './boxes/boxes.component';
 import { HeaderComponent } from './header/header.component';
 import { SigninComponent } from './signin/signin.component';
 import { BoxComponent } from './box/box.component';
-import { AuthGuard } from './auth.guard';
-import { BoxService } from './services/box.service';
 import { SignupComponent } from './signup/signup.component';
 import { UserComponent } from './user/user.component';
 import { NewBoxComponent } from './new-box/new-box.component';
 import { NewFoodComponent } from './new-food/new-food.component';
 import { NewUnitComponent } from './new-unit/new-unit.component';
 import { InviteComponent } from './invite/invite.component';
+import { FoodComponent } from './food/food.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig(), http, options);
@@ -65,6 +67,10 @@ const routes: Routes = [
     path: 'boxes/:id/foods/new',
     component: NewFoodComponent,
     canActivate: [AuthGuard]
+  }, {
+    path: 'foods/:id',
+    component: FoodComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
@@ -80,7 +86,8 @@ const routes: Routes = [
     NewBoxComponent,
     NewFoodComponent,
     NewUnitComponent,
-    InviteComponent
+    InviteComponent,
+    FoodComponent
   ],
   imports: [
     BrowserModule,
@@ -92,7 +99,7 @@ const routes: Routes = [
   ],
   providers: [
     AuthGuard,
-    BoxService,
+    AuthService,
     {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,

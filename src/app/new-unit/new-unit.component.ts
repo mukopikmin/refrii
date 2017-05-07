@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { BoxService } from '../services/box.service';
+import { UnitService } from '../services/unit.service';
 
 @Component({
   selector: 'app-new-unit',
   templateUrl: './new-unit.component.html',
-  styleUrls: ['./new-unit.component.css']
+  styleUrls: ['./new-unit.component.css'],
+  providers: [UnitService]
 })
 export class NewUnitComponent implements OnInit {
   public form: FormGroup;
@@ -17,7 +18,7 @@ export class NewUnitComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private boxService: BoxService) { }
+    private unitService: UnitService) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -33,12 +34,8 @@ export class NewUnitComponent implements OnInit {
     }
     const params = form.value;
 
-    this.boxService.createUnit(params.label)
-      .then(unit => {
-        this.router.navigate(['/user']);
-      })
-      .catch(error => {
-        this.isFailed = true;
-      });
+    this.unitService.createUnit(params.label)
+      .then(unit => this.router.navigate(['/user']))
+      .catch(error => this.isFailed = true);
   }
 }

@@ -1,12 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BoxService, Box, User, Unit, Food, BoxType } from '../services/box.service';
+import { AuthService } from '../services/auth.service';
+import { BoxService } from '../services/box.service';
+import { UnitService } from '../services/unit.service';
+import { Box, BoxType } from '../models/box';
+import { User } from '../models/user';
+import { Unit } from '../models/unit';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  styleUrls: ['./user.component.css'],
+  providers: [
+    AuthService,
+    BoxService,
+    UnitService
+  ]
 })
 export class UserComponent implements OnInit {
   public user: User;
@@ -14,10 +24,14 @@ export class UserComponent implements OnInit {
   public invitedBoxes: Box[] = [];
   public units: Unit[] = [];
 
-  constructor(private router: Router, private boxService: BoxService) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private boxService: BoxService,
+    private unitService: UnitService) { }
 
   ngOnInit() {
-    this.boxService.getSignedinUser()
+    this.authService.getSignedinUser()
       .then(user => {
         this.user = user;
         return Promise.all([
@@ -29,13 +43,13 @@ export class UserComponent implements OnInit {
         this.ownBoxes = result[0];
         this.invitedBoxes = result[1];
       });
-    this.boxService.getUnits().then(units => this.units = units);
+    this.unitService.getUnits().then(units => this.units = units);
   }
 
   public removeUnit(unit: Unit): void {
-    this.boxService.removeUnit(unit)
+    this.unitService.removeUnit(unit)
       .then(() => {
-        return this.boxService.getUnits();
+        return this.unitService.getUnits();
       })
       .then(units => this.units = units);
   }

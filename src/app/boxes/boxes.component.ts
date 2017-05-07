@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BoxService, Box } from '../services/box.service';
+import { BoxService } from '../services/box.service';
+import { Box } from '../models/box';
 
 @Component({
   selector: 'app-boxes',
@@ -17,10 +18,7 @@ export class BoxesComponent implements OnInit {
     private boxService: BoxService) { }
 
   ngOnInit() {
-    this.boxService.getBoxes()
-      .then(boxes => {
-        this.boxes = boxes;
-      });
+    this.boxService.getBoxes().then(boxes => { this.boxes = boxes });
   }
 
   public createBox(): void {

@@ -1,88 +1,72 @@
 <div class="container">
-  <div class="card-columns">
-    <div *ngIf="user" class="card">
-      <div class="card-header">
-        Your account
-      </div>
-      <table class="table">
-        <tr>
-          <td>Name</td>
-          <td>{{user.name}}</td>
-        </tr>
-        <tr>
-          <td>Email</td>
-          <td>{{user.email}}</td>
-        </tr>
-        <tr>
-          <td>Registered</td>
-          <td>{{user.createdAt | date: 'yyyy/MM/dd HH:mm'}}</td>
-        </tr>
-      </table>
-      <div class="card-footer text-muted">
-        Last update {{user.updatedAt | date: 'yyyy/MM/dd HH:mm'}}
+  <div class="row">
+    <div class="col-sm-6">
+      <div *ngIf="user" class="card">
+        <div class="card-header">
+          Your account
+        </div>
+        <table class="table">
+          <tr>
+            <td>Name</td>
+            <td>{{user.name}}</td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>{{user.email}}</td>
+          </tr>
+          <tr>
+            <td>Registered</td>
+            <td>{{user.createdAt | date: 'yyyy/MM/dd HH:mm'}}</td>
+          </tr>
+        </table>
+        <div class="card-footer text-muted">
+          Last update {{user.updatedAt | date: 'yyyy/MM/dd HH:mm'}}
+        </div>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        Service usage
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          Service usage
+        </div>
+        <div class="card-block">
+          You are using {{ownBoxes.length}} boxes.
+          <button class="btn btn-sm btn-outline-success" (click)="createBox()">Add box</button>
+        </div>
+        <table class="table">
+          <tr *ngFor="let box of ownBoxes">
+            <td>{{box.name}}</td>
+            <td>{{box.foods.length}} foods</td>
+            <td>
+              <button class="btn btn-outline-info btn-sm">Edit</button>
+            </td>
+            <td>
+              <button class="btn btn-outline-success btn-sm" (click)="invite(box)">Invite</button>
+            </td>
+            <td>
+              <button class="btn btn-outline-danger btn-sm" (click)="removeBox(box)" [disabled]="box.foods.length > 0">Remove</button>
+            </td>
+          </tr>
+        </table>
       </div>
-      <div class="card-block">
-        You are using {{ownBoxes.length}} boxes.
-        <button class="btn btn-sm btn-outline-success" (click)="createBox()">Add box</button>
-      </div>
-      <table class="table">
-        <tr *ngFor="let box of ownBoxes">
-          <td>{{box.name}}</td>
-          <td>{{box.foods.length}} foods</td>
-          <td>
-            <button class="btn btn-outline-info btn-sm">Edit</button>
-          </td>
-          <td>
-            <button class="btn btn-outline-success btn-sm" (click)="invite(box)">Invite</button>
-          </td>
-          <td>
-            <button class="btn btn-outline-danger btn-sm" (click)="removeBox(box)" [disabled]="box.foods.length > 0">Remove</button>
-          </td>
-        </tr>
-      </table>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        Invited boxes usage
-      </div>
-      <div class="card-block">
-        You are using {{invitedBoxes.length}} invited boxes.
-      </div>
-      <table class="table">
-        <tr *ngFor="let box of invitedBoxes">
-          <td>{{box.name}}</td>
-          <td>{{box.foods.length}} foods</td>
-          <td>{{box.owner.email}}</td>
-        </tr>
-      </table>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        Units
-      </div>
-      <table class="table">
-        <tr *ngFor="let unit of units">
-          <td>{{unit.label}}</td>
-          <td>{{unit.foods.length}} foods labeled</td>
-          <td>
-            <button class="btn btn-outline-info btn-block btn-sm">Edit</button>
-          </td>
-          <td>
-            <button class="btn btn-outline-danger btn-block btn-sm" [disabled]="unit.foods.length > 0" (click)="removeUnit(unit)">Remove</button>
-          </td>
-        </tr>
-      </table>
-      <div class="card-footer text-muted">
-        Using {{units.length}} units
-        <button class="btn btn-sm btn-outline-success" (click)="createUnit()">Add unit</button>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          Invited boxes usage
+        </div>
+        <div class="card-block">
+          You are using {{invitedBoxes.length}} invited boxes.
+        </div>
+        <table class="table">
+          <tr *ngFor="let box of invitedBoxes">
+            <td>{{box.name}}</td>
+            <td>{{box.foods.length}} foods</td>
+            <td>{{box.owner.email}}</td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>

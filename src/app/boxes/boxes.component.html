@@ -1,6 +1,7 @@
 <div class="container">
-    <div class="card-columns">
-      <div *ngFor="let box of boxes" class="card">
+  <div class="row">
+    <div *ngFor="let box of boxes" class="col-md-6">
+      <div class="card">
         <div class="card-header">
           <a [routerLink]="['/boxes', box.id]">{{box.name}}</a>
         </div>
@@ -15,3 +16,4 @@
       </div>
     </div>
   </div>
+</div>

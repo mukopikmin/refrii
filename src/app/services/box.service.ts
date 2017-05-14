@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
 import { Box, BoxType } from '../models/box';
 import { User } from '../models/user';
 import { Food } from '../models/food';
+import { Unit } from '../models/unit';
 
 @Injectable()
 export class BoxService {
@@ -50,8 +51,10 @@ export class BoxService {
         const json = response.json();
         const box = new Box(json);
         box.setUser(new User(json.user));
-        box.setFoods(json.foods.map(food => {
-          return new Food(food);
+        box.setFoods(json.foods.map(json => {
+          const food = new Food(json);
+          food.setUnit(new Unit(json.unit));
+          return food;
         }));
         return box;
       });

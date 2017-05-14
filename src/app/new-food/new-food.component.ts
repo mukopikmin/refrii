@@ -40,8 +40,13 @@ export class NewFoodComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
-    this.unitService.getUnits().then(units => this.units = units);
-    this.boxService.getBox(this.id).then(box => this.box = box);
+    // this.unitService.getUnits().then(units => this.units = units);
+    this.boxService.getBox(this.id)
+      .then(box => {
+        this.box = box;
+        return this.unitService.getUnits(this.box);
+      })
+      .then(units => this.units = units);
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
       notice: [],

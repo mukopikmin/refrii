@@ -1,10 +1,12 @@
+import { Unit } from './unit';
+
 export class Food {
   private id: number;
   private name: string;
   private notice: string;
   private amount: number;
-  private unitLabel: string;
   private expirationDate: Date;
+  private unit: Unit;
   private createdAt: Date;
   private updatedAt: Date;
 
@@ -13,7 +15,6 @@ export class Food {
     this.name = json.name;
     this.notice = json.notice;
     this.amount = json.amount;
-    this.unitLabel = json.unit_label;
     this.expirationDate = new Date(json.expiration_date);
     this.createdAt = new Date(json.created_at);
     this.updatedAt = new Date(json.updated_at);
@@ -37,5 +38,9 @@ export class Food {
 
   public setExpirationDate(expirationDate: Date): void {
     this.expirationDate = expirationDate;
+  }
+
+  public setUnit(unit: Unit): void {
+    this.unit = unit;
   }
 }

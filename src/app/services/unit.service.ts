@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { environment } from '../../environments/environment';
 import { Unit } from '../models/unit';
+import { Box } from '../models/box';
 
 @Injectable()
 export class UnitService {
@@ -14,8 +15,14 @@ export class UnitService {
     private authHttp: AuthHttp,
     private http: Http) { }
 
-  public getUnits(): Promise<Unit[]> {
-    return this.authHttp.get(`${this.endpoint}/units`)
+  public getUnits(box: Box = null): Promise<Unit[]> {
+    let url;
+    if (box === null) {
+      url = `${this.endpoint}/units`
+    } else {
+      url = `${this.endpoint}/boxes/${box.getId()}/units`;
+    }
+    return this.authHttp.get(url)
       .toPromise()
       .then(response => {
         return response.json().map(json => new Unit(json));

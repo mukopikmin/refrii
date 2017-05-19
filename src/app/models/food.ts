@@ -1,4 +1,5 @@
 import { Unit } from './unit';
+import { Box } from './box';
 
 export class Food {
   private id: number;
@@ -7,6 +8,7 @@ export class Food {
   private amount: number;
   private expirationDate: Date;
   private unit: Unit;
+  private box: Box;
   private createdAt: Date;
   private updatedAt: Date;
 
@@ -24,12 +26,32 @@ export class Food {
     return this.id;
   }
 
+  public getName(): string {
+    return this.name;
+  }
+
+  public getNotice(): string {
+    return this.notice;
+  }
+
   public getAmount(): number {
     return this.amount;
   }
 
   public getExpirationDate(): Date {
     return this.expirationDate;
+  }
+
+  public getBox(): Box {
+    return this.box;
+  }
+
+  public decrement(weight: number = 1): void {
+    this.amount -= this.unit.getStep() * weight;
+  }
+
+  public increment(weight: number = 1): void {
+    this.amount += this.unit.getStep() * weight;
   }
 
   public setAmount(amount: number): void {
@@ -42,5 +64,9 @@ export class Food {
 
   public setUnit(unit: Unit): void {
     this.unit = unit;
+  }
+
+  public setBox(box: Box): void {
+    this.box = box;
   }
 }

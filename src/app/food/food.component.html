@@ -11,7 +11,6 @@
       <div class="col-sm-6">
         <div class="btn-group btn-group-justified">
           <button class="btn btn-outline-primary" (click)="decrease()">-</button>
-          <button class="btn btn-outline-primary" (click)="preview()">Apply</button>
           <button class="btn btn-outline-primary" (click)="increase()">+</button>
         </div>
       </div>
@@ -26,7 +25,6 @@
       <div class="col-sm-6">
         <div class="btn-group">
           <button class="btn btn-outline-primary" (click)="preview()">-</button>
-          <button class="btn btn-outline-primary" (click)="preview()">Apply</button>
           <button class="btn btn-outline-primary" (click)="next()">+</button>
         </div>
       </div>
@@ -40,10 +38,10 @@
 
     <div class="row">
       <div class="col-sm-6">
-        <button class="btn btn-outline-primary btn-block">Update</button>
+        <button (click)="apply()" class="btn btn-outline-primary btn-block">Update</button>
       </div>
       <div class="col-sm-6">
-        <button class="btn btn-outline-danger btn-block">Remove</button>
+        <button (click)="remove()" class="btn btn-outline-danger btn-block">Remove</button>
       </div>
     </div>
   </form>

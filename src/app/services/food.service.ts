@@ -22,7 +22,11 @@ export class FoodService {
     return this.authHttp.get(`${this.endpoint}/foods/${id}`)
       .toPromise()
       .then(response => {
-        return new Food(response.json());
+        const json = response.json();
+        const food = new Food(json);
+        food.setBox(new Box(json.box));
+        food.setUnit(new Unit(json.unit));
+        return food;
       });
   }
 
@@ -40,9 +44,6 @@ export class FoodService {
       .toPromise()
       .then(response => {
         return new Food(response.json());
-      })
-      .catch(error => {
-        console.log(error);
       });
   }
 
@@ -51,7 +52,20 @@ export class FoodService {
       .toPromise()
       .then(response => {
         return;
+      });
+  }
+
+  public updateFood(food: Food): Promise<Food> {
+    const data = new FormData();
+    data.append('name', food.getName());
+    data.append('notice', food.getNotice());
+    data.append('amount', food.getAmount());
+    data.append('expiration_date', this.datePipe.transform(food.getExpirationDate(), 'yyyy-MM-dd'));
+
+    return this.authHttp.put(`${this.endpoint}/foods/${food.getId()}`, data)
+      .toPromise()
+      .then(response => {
+        return new Food(response.json());
       })
-      .catch(error => console.log(error));
   }
 }

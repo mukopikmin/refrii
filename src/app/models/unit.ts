@@ -1,5 +1,3 @@
-import { Food } from './food';
-
 export class Unit {
   private id: number;
   private label: string;
@@ -17,5 +15,9 @@ export class Unit {
 
   public getId(): number {
     return this.id;
+  }
+
+  public getStep(): number {
+    return this.step;
   }
 }

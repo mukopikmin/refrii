@@ -43,17 +43,23 @@ export class FoodComponent implements OnInit {
     });
   }
 
-  decrease() {
-    this.food.setAmount(this.food.getAmount() - 1.0);
+  decrease(weight: number = 1) {
+    this.food.decrement(weight);
     this.form.patchValue({
       amount: this.decimalPipe.transform(this.food.getAmount(), '1.0-1')
     });
   }
 
-  increase() {
-    this.food.setAmount(this.food.getAmount() + 1.0);
+  increase(weight: number = 1) {
+    this.food.increment(weight);
     this.form.patchValue({
       amount: this.decimalPipe.transform(this.food.getAmount(), '1.0-1')
+    });
+  }
+
+  apply() {
+    this.foodService.updateFood(this.food).then(food => {
+      this.food = food;
     });
   }
 
@@ -73,5 +79,12 @@ export class FoodComponent implements OnInit {
     this.form.patchValue({
       expirationDate: this.datePipe.transform(date, 'yyyy-MM-dd')
     });
+  }
+
+  remove() {
+    this.foodService.removeFood(this.food)
+      .then(() => {
+        this.router.navigate(['/boxes', this.food.getBox().getId()]);
+      });
   }
 }

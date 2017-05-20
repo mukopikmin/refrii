@@ -1,6 +1,8 @@
 <div *ngIf="food" class="container">
   <form [formGroup]="form">
-    <h4>{{food.name}}</h4>
+    <h4>
+      <a [routerLink]="['/boxes', food.box.id]">{{food.box.name}}</a> / {{food.name}}
+    </h4>
     <p>{{food.notice}}</p>
 
     <h5>Amount</h5>
@@ -10,8 +12,10 @@
       </div>
       <div class="col-sm-6">
         <div class="btn-group btn-group-justified">
+          <button class="btn btn-outline-primary" (click)="decrease(10)">--</button>
           <button class="btn btn-outline-primary" (click)="decrease()">-</button>
           <button class="btn btn-outline-primary" (click)="increase()">+</button>
+          <button class="btn btn-outline-primary" (click)="increase(10)">++</button>
         </div>
       </div>
     </div>

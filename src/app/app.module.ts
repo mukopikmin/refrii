@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { Http, RequestOptions } from '@angular/http';
 import { DatePipe } from '@angular/common';
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './auth.guard';
@@ -94,6 +95,7 @@ const routes: Routes = [
     FormsModule,
     HttpModule,
     ReactiveFormsModule,
+    Angular2FontawesomeModule,
     RouterModule.forRoot(routes),
     NgbModule.forRoot()
   ],

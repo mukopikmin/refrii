@@ -1,30 +1,36 @@
-<div *ngIf="box" class="container">
-  <h4>{{box.name}}</h4>
+<div class="container">
+  <div *ngIf="!box" class="loading">
+    <fa name="circle-o-notch" [spin]="true" [size]="2"></fa>
+  </div>
 
-  <h5>All</h5>
-  <div class="row">
-    <div *ngFor="let food of box.foods" class="col-lg-4 col-sm-6">
-      <div class="card">
-        <div class="card-header">
-          <a [routerLink]="['/foods', food.id]">{{food.name}}</a>
+  <div *ngIf="box">
+    <h4>{{box.name}}</h4>
+
+    <h5>All</h5>
+    <div class="row">
+      <div *ngFor="let food of box.foods" class="col-lg-4 col-sm-6">
+        <div class="card">
+          <div class="card-header">
+            <a [routerLink]="['/foods', food.id]">{{food.name}}</a>
+          </div>
+          <div class="card-block">
+            <p class="card-text">{{food.notice}}</p>
+          </div>
+          <table class="table">
+            <tr>
+              <td>Amount</td>
+              <td>{{food.amount | number: '1.0-1'}} {{food.unit.label}}</td>
+            </tr>
+            <tr>
+              <td>Expiration</td>
+              <td>{{food.expirationDate | date: 'yyyy/MM/dd'}}</td>
+            </tr>
+          </table>
         </div>
-        <div class="card-block">
-          <p class="card-text">{{food.notice}}</p>
-        </div>
-        <table class="table">
-          <tr>
-            <td>Amount</td>
-            <td>{{food.amount | number: '1.0-1'}} {{food.unit.label}}</td>
-          </tr>
-          <tr>
-            <td>Expiration</td>
-            <td>{{food.expirationDate | date: 'yyyy/MM/dd'}}</td>
-          </tr>
-        </table>
       </div>
-    </div>
-    <div class="col-md-4">
-      <button class="add-food btn btn-outline-primary btn-lg btn-block" (click)="createFood(box.id)">+</button>
+      <div class="col-lg-4 col-sm-6">
+        <button class="add-food btn btn-outline-primary btn-lg btn-block" (click)="createFood(box.id)">+</button>
+      </div>
     </div>
   </div>
 </div>

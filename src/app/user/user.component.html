@@ -1,6 +1,10 @@
 <div class="container">
+  <div *ngIf="!user" class="loading">
+    <fa name="circle-o-notch" [spin]="true" [size]="2"></fa>
+  </div>
+
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-12">
       <div *ngIf="user" class="card">
         <div class="card-header">
           Your account
@@ -25,7 +29,7 @@
       </div>
     </div>
 
-    <div class="col-sm-6">
+    <div class="col-sm-12">
       <div class="card">
         <div class="card-header">
           Service usage
@@ -52,7 +56,7 @@
       </div>
     </div>
 
-    <div class="col-sm-6">
+    <div class="col-sm-12">
       <div class="card">
         <div class="card-header">
           Invited boxes usage

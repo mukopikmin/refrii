@@ -14,7 +14,12 @@
           <label for="password">Password</label>
           <input type="password" class="form-control" id="password" placeholder="Password" [formControl]="form.controls['password']">
         </div>
-        <input type="submit" class="btn btn-outline-success btn-block" [formControl]="form.controls['submit']">
+
+        <input *ngIf="!isProcessing" type="submit" class="btn btn-outline-success btn-block" [formControl]="form.controls['submit']">
+
+        <button *ngIf="isProcessing" class="btn btn-outline-success btn-block" disabled>
+          <fa name="circle-o-notch" [spin]="true"></fa>
+        </button>
       </form>
 
       <div class="message">

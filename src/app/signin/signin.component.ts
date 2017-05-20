@@ -12,8 +12,8 @@ import { AuthService } from '../services/auth.service';
 })
 export class SigninComponent implements OnInit {
   public form: FormGroup;
-
-  private isFailed: boolean = false;
+  public isFailed: boolean = false;
+  public isProcessing: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,15 +32,21 @@ export class SigninComponent implements OnInit {
   }
 
   public submit(form): void {
+    this.isProcessing = true;
     if (this.form.status === 'INVALID') {
       this.isFailed = true;
+      this.isProcessing = false;
       return;
     }
     this.authService.auth(form.value.email, form.value.password)
       .then(cred => {
         localStorage.setItem('id_token', cred.jwt);
+        this.isProcessing = false;
         this.router.navigate(['/']);
       })
-      .catch(error => { this.isFailed = true });
+      .catch(error => {
+        this.isFailed = true;
+        this.isProcessing = false;
+      });
   }
 }

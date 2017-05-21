@@ -3,11 +3,12 @@
     <fa name="circle-o-notch" [spin]="true" [size]="2"></fa>
   </div>
 
+
   <div *ngIf="food">
     <form [formGroup]="form">
       <h4>
-      <a [routerLink]="['/boxes', food.box.id]">{{food.box.name}}</a> / {{food.name}}
-    </h4>
+        <a [routerLink]="['/boxes', food.box.id]">{{food.box.name}}</a> / {{food.name}}
+      </h4>
       <p>{{food.notice}}</p>
 
       <h5>Amount</h5>

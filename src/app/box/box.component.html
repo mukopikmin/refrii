@@ -4,9 +4,20 @@
   </div>
 
   <div *ngIf="box">
-    <h4>{{box.name}}</h4>
 
-    <h5>All</h5>
+    <h5>
+      {{box.name}}
+      <div ngbDropdown id="actions" class="d-inline-block">
+        <button class="btn btn-outline-primary" id="dropdown" ngbDropdownToggle>Actions</button>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown">
+          <a [routerLink]="['/boxes', box.id, 'edit']" class="dropdown-item">Edit box</a>
+          <a [routerLink]="['/boxes', box.id, 'foods', 'new']" class="dropdown-item">Add food</a>
+        </div>
+      </div>
+    </h5>
+
+    <p>{{box.notice}}</p>
+
     <div class="row">
       <div *ngFor="let food of box.foods" class="col-lg-4 col-sm-6">
         <div class="card">
@@ -27,9 +38,6 @@
             </tr>
           </table>
         </div>
-      </div>
-      <div class="col-lg-4 col-sm-6">
-        <button class="add-food btn btn-outline-primary btn-lg btn-block" (click)="createFood(box.id)">+</button>
       </div>
     </div>
   </div>

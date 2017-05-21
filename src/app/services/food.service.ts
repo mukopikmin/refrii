@@ -65,7 +65,11 @@ export class FoodService {
     return this.authHttp.put(`${this.endpoint}/foods/${food.getId()}`, data)
       .toPromise()
       .then(response => {
-        return new Food(response.json());
+        const json = response.json();
+        const food = new Food(json);
+        food.setBox(new Box(json.box));
+        food.setUnit(new Unit(json.unit));
+        return food;
       })
   }
 }

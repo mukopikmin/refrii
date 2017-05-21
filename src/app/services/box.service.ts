@@ -60,6 +60,25 @@ export class BoxService {
       });
   }
 
+  public updateBox(box: Box): Promise<Box> {
+    const data = new FormData();
+    data.append('name', box.getName());
+    data.append('notice', box.getNotice());
+
+    return this.authHttp.put(`${this.endpoint}/boxes/${box.getId()}`, data)
+      .toPromise()
+      .then(response => {
+        const json = response.json();
+        const box = new Box(json);
+        box.setUser(new User(json.user));
+        box.setFoods(json.foods.map(json => {
+          return new Food(json);
+        }));
+        return box;
+      })
+      .catch(error => console.log(error));
+  }
+
   public createBox(name: string, notice: string): Promise<Box> {
     const data = new FormData();
     data.append('name', name);

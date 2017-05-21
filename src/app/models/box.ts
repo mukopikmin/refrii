@@ -22,8 +22,24 @@ export class Box {
     return this.id;
   }
 
+  public getName(): string {
+    return this.name;
+  }
+
+  public getNotice(): string {
+    return this.notice;
+  }
+
   public getFoods(): Food[] {
     return this.foods;
+  }
+
+  public setName(name: string): void {
+    this.name = name;
+  }
+
+  public setNotice(notice: string): void {
+    this.notice = notice;
   }
 
   public setUser(user: User): void {

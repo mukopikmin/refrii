@@ -6,6 +6,7 @@
   <div *ngIf="box">
 
     <h5>
+      <span *ngIf="box.isInvited"><fa name="chain-broken"></fa></span>
       {{box.name}}
       <div ngbDropdown id="actions" class="d-inline-block">
         <button class="btn btn-outline-primary" id="dropdown" ngbDropdownToggle>Actions</button>

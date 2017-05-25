@@ -7,6 +7,7 @@
     <div *ngFor="let box of boxes" class="col-md-6">
       <div class="card">
         <div class="card-header">
+          <span *ngIf="box.isInvited"><fa name="chain-broken"></fa></span>
           <a [routerLink]="['/boxes', box.id]">{{box.name}}</a>
         </div>
         <div class="card-block">

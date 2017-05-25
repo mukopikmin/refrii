@@ -26,6 +26,8 @@ import { InviteComponent } from './invite/invite.component';
 import { FoodComponent } from './food/food.component';
 import { EditBoxComponent } from './edit-box/edit-box.component';
 
+import { InvitedBoxesPipe } from './pipes/invited-boxes.pipe';
+
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig(), http, options);
 }
@@ -94,7 +96,8 @@ const routes: Routes = [
     NewUnitComponent,
     InviteComponent,
     FoodComponent,
-    EditBoxComponent
+    EditBoxComponent,
+    InvitedBoxesPipe
   ],
   imports: [
     BrowserModule,

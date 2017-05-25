@@ -5,6 +5,7 @@ export class Box {
   private id: number;
   private name: string;
   private notice: string;
+  private isInvited: boolean;
   private createdAt: Date;
   private updatedAt: Date;
   private user: User;
@@ -14,6 +15,7 @@ export class Box {
     this.id = json.id;
     this.name = json.name;
     this.notice = json.notice;
+    this.isInvited = json.is_invited;
     this.createdAt = new Date(json.created_at);
     this.updatedAt = new Date(json.updated_at);
   }
@@ -28,6 +30,10 @@ export class Box {
 
   public getNotice(): string {
     return this.notice;
+  }
+
+  public getIsInvited(): boolean {
+    return this.isInvited;
   }
 
   public getFoods(): Food[] {

@@ -26,7 +26,22 @@ export class UserService {
       .toPromise()
       .then(response => {
         return new User(response.json());
-      })
-      .catch(error => console.log(error));
+      });
+  }
+
+  public update(user: User, password: string, passwordConfirm: string): Promise<User> {
+    const data = new FormData();
+    data.append('name', user.getName());
+    data.append('email', user.getEmail());
+    if (password) {
+      data.append('password', password);
+      data.append('password_confirmation', passwordConfirm);
+    }
+
+    return this.authHttp.put(`${this.endpoint}/users/${user.getId()}`, data)
+      .toPromise()
+      .then(response => {
+        return new User(response.json());
+      });
   }
 }

@@ -16,4 +16,12 @@ export class User {
   public getId(): number {
     return this.id;
   }
+
+  public getName(): string {
+    return this.name;
+  }
+
+  public getEmail(): string {
+    return this.email;
+  }
 }

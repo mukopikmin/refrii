@@ -1,3 +1,30 @@
-<p>
-  edit-user works!
-</p>
+<div class="container">
+  <div *ngIf="form" class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <div *ngIf="isFailed" class="alert alert-danger" role="alert">
+        Email address or Password is invalid.
+      </div>
+      <form [formGroup]="form" (ngSubmit)="submit(form)">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="name" class="form-control" id="name" placeholder="Enter name" [formControl]="form.controls['name']">
+        </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" class="form-control" id="email" placeholder="Enter email" [formControl]="form.controls['email']">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Password" [formControl]="form.controls['password']">
+        </div>
+        <div class="form-group">
+          <label for="password-confirm">Password confirm</label>
+          <input type="password" class="form-control" id="password-confirm" placeholder="Password" [formControl]="form.controls['password_confirm']">
+        </div>
+        <input type="submit" class="btn btn-outline-success btn-block" [formControl]="form.controls['submit']">
+      </form>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>

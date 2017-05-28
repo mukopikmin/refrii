@@ -23,6 +23,7 @@
             <td>{{user.createdAt | date: 'yyyy/MM/dd HH:mm'}}</td>
           </tr>
         </table>
+        <a [routerLink]="['/user', 'edit']" class="btn btn-outline-primary btn-block">Update</a>
         <div class="card-footer text-muted">
           Last update {{user.updatedAt | date: 'yyyy/MM/dd HH:mm'}}
         </div>

@@ -40,7 +40,6 @@ export class NewFoodComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
-    // this.unitService.getUnits().then(units => this.units = units);
     this.boxService.getBox(this.id)
       .then(box => {
         this.box = box;

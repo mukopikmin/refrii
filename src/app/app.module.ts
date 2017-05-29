@@ -28,6 +28,7 @@ import { EditBoxComponent } from './edit-box/edit-box.component';
 
 import { InvitedBoxesPipe } from './pipes/invited-boxes.pipe';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { EditFoodComponent } from './edit-food/edit-food.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig(), http, options);
@@ -84,6 +85,10 @@ const routes: Routes = [
     path: 'foods/:id',
     component: FoodComponent,
     canActivate: [AuthGuard]
+  }, {
+    path: 'foods/:id/edit',
+    component: EditFoodComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
@@ -103,7 +108,8 @@ const routes: Routes = [
     FoodComponent,
     EditBoxComponent,
     InvitedBoxesPipe,
-    EditUserComponent
+    EditUserComponent,
+    EditFoodComponent
   ],
   imports: [
     BrowserModule,

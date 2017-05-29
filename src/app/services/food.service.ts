@@ -61,6 +61,7 @@ export class FoodService {
     data.append('notice', food.getNotice());
     data.append('amount', food.getAmount());
     data.append('expiration_date', this.datePipe.transform(food.getExpirationDate(), 'yyyy-MM-dd'));
+    data.append('unit_id', food.getUnit().getId());
 
     return this.authHttp.put(`${this.endpoint}/foods/${food.getId()}`, data)
       .toPromise()

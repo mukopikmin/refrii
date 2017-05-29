@@ -42,6 +42,10 @@ export class Food {
     return this.expirationDate;
   }
 
+  public getUnit(): Unit {
+    return this.unit;
+  }
+
   public getBox(): Box {
     return this.box;
   }
@@ -52,6 +56,10 @@ export class Food {
 
   public increment(weight: number = 1): void {
     this.amount += this.unit.getStep() * weight;
+  }
+
+  public setId(id: number): void {
+    this.id = id;
   }
 
   public setAmount(amount: number): void {

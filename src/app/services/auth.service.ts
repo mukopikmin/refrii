@@ -17,9 +17,9 @@ export class AuthService {
     private datePipe: DatePipe) { }
 
     public verify(): boolean {
-      const isNotExpired = tokenNotExpired();
+      const isNotExpired = tokenNotExpired('token');
       if (!isNotExpired) {
-        localStorage.removeItem('id_token');
+        localStorage.removeItem('token');
       }
 
       return isNotExpired;

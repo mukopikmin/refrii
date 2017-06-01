@@ -40,9 +40,9 @@ export class SigninComponent implements OnInit {
     }
     this.authService.auth(form.value.email, form.value.password)
       .then(cred => {
-        localStorage.setItem('id_token', cred.jwt);
+        localStorage.setItem('token', cred.jwt);
         this.isProcessing = false;
-        this.router.navigate(['/']);
+        this.router.navigate(['/boxes']);
       })
       .catch(error => {
         this.isFailed = true;

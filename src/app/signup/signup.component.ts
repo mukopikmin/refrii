@@ -45,7 +45,7 @@ export class SignupComponent implements OnInit {
         return this.authService.auth(params.email, params.password);
       })
       .then(cred => {
-        localStorage.setItem('id_token', cred.jwt);
+        localStorage.setItem('token', cred.jwt);
         this.router.navigate(['/']);
       })
       .catch(error => { this.isFailed = true });

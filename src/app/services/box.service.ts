@@ -102,7 +102,7 @@ export class BoxService {
   public inviteUser(user: User, box: Box): Promise<void> {
     const url = `${this.endpoint}/boxes/${box.getId()}/invite`;
     const data = new FormData();
-    data.append('user_id', user.getId());
+    data.append('user_id', user.getId().toString());
 
     return this.authHttp.post(url, data)
       .toPromise()

@@ -35,10 +35,10 @@ export class FoodService {
     const data = new FormData();
     data.append('name', name);
     data.append('notice', notice);
-    data.append('amount', amount);
+    data.append('amount', amount.toString());
     data.append('expiration_date', this.datePipe.transform(expirationDate, 'yyyy-MM-dd'));
-    data.append('unit_id', unit.getId());
-    data.append('box_id', box.getId());
+    data.append('unit_id', unit.getId().toString());
+    data.append('box_id', box.getId().toString());
 
     return this.authHttp.post(url, data)
       .toPromise()
@@ -59,9 +59,9 @@ export class FoodService {
     const data = new FormData();
     data.append('name', food.getName());
     data.append('notice', food.getNotice());
-    data.append('amount', food.getAmount());
+    data.append('amount', food.getAmount().toString());
     data.append('expiration_date', this.datePipe.transform(food.getExpirationDate(), 'yyyy-MM-dd'));
-    data.append('unit_id', food.getUnit().getId());
+    data.append('unit_id', food.getUnit().getId().toString());
 
     return this.authHttp.put(`${this.endpoint}/foods/${food.getId()}`, data)
       .toPromise()

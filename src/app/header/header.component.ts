@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public signout(): void {
-    localStorage.removeItem('id_token');
+    localStorage.removeItem('token');
     this.user = null;
     this.router.navigate(['/signin']);
   }

@@ -52,12 +52,10 @@ export class AuthService {
     }
 
     public auth(email: string, password: string): any {
-      const url = `${this.endpoint}/user_token`;
+      const url = `${this.endpoint}/auth/local`;
       const body = {
-        auth: {
-          email: email,
-          password: password
-        }
+        email: email,
+        password: password
       };
       const headers = new Headers();
       headers.set('Content-Type', 'application/json');
@@ -66,9 +64,18 @@ export class AuthService {
         .toPromise()
         .then(response => {
           return response.json();
-        })
-        .catch(error => {
-          console.log(error);
+        });
+    }
+
+    public googleAuth(state: string, code: string): any {
+      const params: URLSearchParams = new URLSearchParams();
+      params.set('state', state);
+      params.set('code', code);
+
+      return this.http.get(`${this.endpoint}/auth/google/callback`, { search: params })
+        .toPromise()
+        .then(response => {
+          return response.json();
         });
     }
 }

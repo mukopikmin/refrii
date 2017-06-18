@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { environment } from '../../environments/environment';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -14,6 +15,7 @@ export class SigninComponent implements OnInit {
   public form: FormGroup;
   public isFailed: boolean = false;
   public isProcessing: boolean = false;
+  public googleAuthUrl = `${environment.endpoint}/auth/google`;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,8 +41,8 @@ export class SigninComponent implements OnInit {
       return;
     }
     this.authService.auth(form.value.email, form.value.password)
-      .then(cred => {
-        localStorage.setItem('token', cred.jwt);
+      .then(credential => {
+        localStorage.setItem('token', credential.jwt);
         this.isProcessing = false;
         this.router.navigate(['/boxes']);
       })

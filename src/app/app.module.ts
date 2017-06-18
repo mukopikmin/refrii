@@ -29,6 +29,7 @@ import { EditBoxComponent } from './edit-box/edit-box.component';
 import { InvitedBoxesPipe } from './pipes/invited-boxes.pipe';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { EditFoodComponent } from './edit-food/edit-food.component';
+import { GoogleAuthorizedComponent } from './google-authorized/google-authorized.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig(), http, options);
@@ -53,6 +54,9 @@ const routes: Routes = [
   }, {
     path: 'signup',
     component: SignupComponent
+  }, {
+    path: 'google/authorized',
+    component: GoogleAuthorizedComponent
   }, {
     path: 'units/new',
     component: NewUnitComponent,
@@ -109,7 +113,8 @@ const routes: Routes = [
     EditBoxComponent,
     InvitedBoxesPipe,
     EditUserComponent,
-    EditFoodComponent
+    EditFoodComponent,
+    GoogleAuthorizedComponent
   ],
   imports: [
     BrowserModule,

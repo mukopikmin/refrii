@@ -34,7 +34,7 @@ export class FoodService {
     const url = `${this.endpoint}/foods`;
     const data = new FormData();
     data.append('name', name);
-    data.append('notice', notice);
+    data.append('notice', notice || '');
     data.append('amount', amount.toString());
     data.append('expiration_date', this.datePipe.transform(expirationDate, 'yyyy-MM-dd'));
     data.append('unit_id', unit.getId().toString());
@@ -58,7 +58,7 @@ export class FoodService {
   public updateFood(food: Food): Promise<Food> {
     const data = new FormData();
     data.append('name', food.getName());
-    data.append('notice', food.getNotice());
+    data.append('notice', food.getNotice() || '');
     data.append('amount', food.getAmount().toString());
     data.append('expiration_date', this.datePipe.transform(food.getExpirationDate(), 'yyyy-MM-dd'));
     data.append('unit_id', food.getUnit().getId().toString());

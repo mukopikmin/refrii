@@ -2,9 +2,8 @@
   <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-      <div *ngIf="isFailed" class="alert alert-danger" role="alert">
-        Email address or Password is invalid.
-      </div>
+      <ngb-alert *ngIf="failedMessage" type="danger" (close)="failedMessage = null">{{failedMessage}}</ngb-alert>
+
       <form [formGroup]="form" (ngSubmit)="submit(form)">
         <div class="form-group">
           <label for="name">Box name</label>

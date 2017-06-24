@@ -41,4 +41,11 @@ export class BoxComponent implements OnInit {
       })
       .then(box => this.box = box);
   }
+
+  public removeBox(): void {
+    this.boxService.removeBox(this.box)
+      .then(() => {
+        this.router.navigate(['/boxes']);
+      });
+  }
 }

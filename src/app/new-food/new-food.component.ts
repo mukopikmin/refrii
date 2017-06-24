@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Params, ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/debounceTime';
 
 import { BoxService } from '../services/box.service';
 import { FoodService } from '../services/food.service';
@@ -23,9 +25,10 @@ export class NewFoodComponent implements OnInit {
   public form: FormGroup;
   public units: Unit[] = [];
   public box: Box;
+  public failedMessage: string;
 
-  private isFailed: boolean = false;
-  private id: number;
+  private _fail = new Subject<string>();
+  private alertLength: number = 10000;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,28 +40,30 @@ export class NewFoodComponent implements OnInit {
     private unitService: UnitService) { }
 
   ngOnInit() {
+    this._fail.subscribe((message) => this.failedMessage = message);
+    this._fail.debounceTime(this.alertLength).subscribe(() => this.failedMessage = null);
+
     this.route.params.subscribe(params => {
-      this.id = params['id'];
-    });
-    this.boxService.getBox(this.id)
-      .then(box => {
-        this.box = box;
-        return this.unitService.getUnits(this.box);
-      })
-      .then(units => this.units = units);
-    this.form = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      notice: [],
-      amount: [0, [Validators.required]],
-      expirationDate: [this.datePipe.transform(new Date(), 'yyyy-MM-dd'), [Validators.required]],
-      unit: ['', [Validators.required]],
-      submit: ['Add new food']
+      this.boxService.getBox(params['id'])
+        .then(box => {
+          this.box = box;
+          return this.unitService.getUnits(this.box);
+        })
+        .then(units => this.units = units);
+      this.form = this.formBuilder.group({
+        name: ['', [Validators.required]],
+        notice: [],
+        amount: [0, [Validators.required]],
+        expirationDate: [this.datePipe.transform(new Date(), 'yyyy-MM-dd'), [Validators.required]],
+        unit: ['', [Validators.required]],
+        submit: ['Add new food']
+      });
     });
   }
 
   public submit(form): void {
     if (this.form.status === 'INVALID') {
-      this.isFailed = true;
+      this._fail.next('Food name, amount and unit is required.');
       return;
     }
     const params = form.value;
@@ -70,7 +75,7 @@ export class NewFoodComponent implements OnInit {
         this.router.navigate(['/boxes', this.box.getId()]);
       })
       .catch(error => {
-        this.isFailed = true;
+        this._fail.next('Food name, amount and unit is required.');
       });
   }
 }

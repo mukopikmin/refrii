@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/debounceTime';
 
 import { BoxService } from '../services/box.service';
 
@@ -12,8 +14,10 @@ import { BoxService } from '../services/box.service';
 })
 export class NewBoxComponent implements OnInit {
   public form: FormGroup;
+  public failedMessage: string;
 
-  private isFailed: boolean = false;
+  private _fail = new Subject<string>();
+  private alertLength: number = 10000;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -21,6 +25,9 @@ export class NewBoxComponent implements OnInit {
     private boxService: BoxService) { }
 
   ngOnInit() {
+    this._fail.subscribe((message) => this.failedMessage = message);
+    this._fail.debounceTime(this.alertLength).subscribe(() => this.failedMessage = null);
+
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
       notice: [],
@@ -30,7 +37,7 @@ export class NewBoxComponent implements OnInit {
 
   public submit(form): void {
     if (this.form.status === 'INVALID') {
-      this.isFailed = true;
+      this._fail.next('Box name is required.');
       return;
     }
     const params = form.value;
@@ -40,7 +47,7 @@ export class NewBoxComponent implements OnInit {
         this.router.navigate(['/boxes', box.getId()]);
       })
       .catch(error => {
-        this.isFailed = true;
+        this._fail.next('Box name is required.');
       });
   }
 }

@@ -7,6 +7,7 @@
     <div ngbDropdown *ngIf="user" id="user-menu" class="d-inline-block">
       <button class="btn btn-outline-primary" id="dropdown" ngbDropdownToggle>{{user.name}}</button>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown">
+        <button [routerLink]="['/boxes/new']" class="dropdown-item">Add box</button>
         <button [routerLink]="['/user']" class="dropdown-item">User info</button>
         <button (click)="signout()" class="dropdown-item">Sign out</button>
       </div>

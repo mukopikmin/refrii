@@ -63,7 +63,7 @@ export class BoxService {
   public updateBox(box: Box): Promise<Box> {
     const data = new FormData();
     data.append('name', box.getName());
-    data.append('notice', box.getNotice());
+    data.append('notice', box.getNotice() || '');
 
     return this.authHttp.put(`${this.endpoint}/boxes/${box.getId()}`, data)
       .toPromise()
@@ -82,7 +82,7 @@ export class BoxService {
   public createBox(name: string, notice: string): Promise<Box> {
     const data = new FormData();
     data.append('name', name);
-    data.append('notice', notice);
+    data.append('notice', notice || '');
 
     return this.authHttp.post(`${this.endpoint}/boxes`, data)
       .toPromise()

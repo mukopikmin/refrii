@@ -8,6 +8,7 @@ import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { Http, RequestOptions } from '@angular/http';
 import { DatePipe } from '@angular/common';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
+import { NewlinesPipe } from 'angular-pipes/src/string/newlines.pipe';
 
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './auth.guard';
@@ -114,7 +115,8 @@ const routes: Routes = [
     InvitedBoxesPipe,
     EditUserComponent,
     EditFoodComponent,
-    GoogleAuthorizedComponent
+    GoogleAuthorizedComponent,
+    NewlinesPipe
   ],
   imports: [
     BrowserModule,

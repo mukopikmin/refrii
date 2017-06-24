@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Params, ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { DecimalPipe, DatePipe } from '@angular/common';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/debounceTime';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import { FoodService } from '../services/food.service';
 import { Food } from '../models/food';
@@ -18,6 +21,10 @@ import { Food } from '../models/food';
 export class FoodComponent implements OnInit {
   public food: Food;
   public form: FormGroup;
+  public successMessage: string;
+
+  private _success = new Subject<string>();
+  private alertLength: number = 10000;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,9 +32,13 @@ export class FoodComponent implements OnInit {
     private router: Router,
     private decimalPipe: DecimalPipe,
     private datePipe: DatePipe,
+    private modalService: NgbModal,
     private foodService: FoodService) { }
 
   ngOnInit() {
+    this._success.subscribe((message) => this.successMessage = message);
+    this._success.debounceTime(this.alertLength).subscribe(() => this.successMessage = null);
+
     this.route.params.subscribe(params => {
       this.foodService.getFood(params['id']).then(food => {
         this.food = food;
@@ -60,6 +71,7 @@ export class FoodComponent implements OnInit {
   apply() {
     this.foodService.updateFood(this.food).then(food => {
       this.food = food;
+      this._success.next(`Food '${this.food.getName()}' is successfully updated.`);
     });
   }
 
@@ -81,10 +93,14 @@ export class FoodComponent implements OnInit {
     });
   }
 
-  remove() {
-    this.foodService.removeFood(this.food)
-      .then(() => {
-        this.router.navigate(['/boxes', this.food.getBox().getId()]);
-      });
+  modal(content) {
+    this.modalService.open(content).result.then((result) => {
+      this.foodService.removeFood(this.food)
+        .then(() => {
+          this.router.navigate(['/boxes', this.food.getBox().getId()]);
+        });
+    })
+    .catch(reason => {
+    });
   }
 }

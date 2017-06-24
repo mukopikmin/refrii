@@ -18,5 +18,9 @@
 }
 
 #actions {
-  margin-left: 20px;
+  float: right;
+}
+
+.table {
+  margin: 0;
 }

@@ -5,5 +5,13 @@
 }
 
 #actions {
-  margin-left: 20px;
+  float: right;
+}
+
+.btn-group {
+  display: flex;
+}
+
+.btn {
+  flex: 1
 }

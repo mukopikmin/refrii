@@ -1,6 +1,24 @@
 <div class="container">
-  <div *ngIf="boxes.length == 0" class="loading">
+  <div *ngIf="!boxes" class="loading">
     <fa name="circle-o-notch" [spin]="true" [size]="2"></fa>
+  </div>
+
+  <div *ngIf="boxes && boxes.length == 0" id="empty">
+    <p>
+      You have no boxes. <br>
+      Let's start using Refrii. <br>
+    <p>
+      1. Prepare units for foods.
+    </p>
+    <p>
+      <a [routerLink]="['/units', 'new']" class="btn btn-outline-primary">Create Units</a>
+    </p>
+    <p>
+      2. Create your first box.
+    </p>
+    <p>
+      <a [routerLink]="['/boxes', 'new']" class="btn btn-outline-primary">Create First Box</a>
+    </p>
   </div>
 
   <div class="row">
@@ -10,7 +28,7 @@
           <span *ngIf="box.isInvited"><fa name="chain-broken"></fa></span>
           <a [routerLink]="['/boxes', box.id]">{{box.name}}</a>
         </div>
-        <div class="card-block">
+        <div *ngIf="box.notice" class="card-block">
           <p class="card-text">{{box.notice}}</p>
         </div>
         <ul class="list-group list-group-flush">

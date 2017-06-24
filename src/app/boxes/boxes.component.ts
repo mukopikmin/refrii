@@ -11,14 +11,14 @@ import { Box } from '../models/box';
   providers: [BoxService]
 })
 export class BoxesComponent implements OnInit {
-  public boxes: Box[] = [];
+  public boxes: Box[];
 
   constructor(
     private router: Router,
     private boxService: BoxService) { }
 
   ngOnInit() {
-    this.boxService.getBoxes().then(boxes => { this.boxes = boxes });
+    this.boxService.getBoxes().then(boxes => this.boxes = boxes);
   }
 
   public createBox(): void {

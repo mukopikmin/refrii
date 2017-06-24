@@ -3,12 +3,10 @@
     <div class="col-md-3"></div>
     <div *ngIf="box" class="col-md-6">
       <h5>
-        <a [routerLink]="['/boxes', box.id]">{{box.name}}</a>
+        <a [routerLink]="['/boxes', box.id]">{{box.name}}</a> / New Food
       </h5>
 
-      <div *ngIf="isFailed" class="alert alert-danger" role="alert">
-        Email address or Password is invalid.
-      </div>
+      <ngb-alert *ngIf="failedMessage" type="danger" (close)="failedMessage = null">{{failedMessage}}</ngb-alert>
 
       <form [formGroup]="form" (ngSubmit)="submit(form)">
         <div class="form-group">

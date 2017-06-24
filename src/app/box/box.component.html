@@ -17,7 +17,7 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown">
             <button [routerLink]="['/boxes', box.id, 'edit']" class="dropdown-item">Edit box</button>
             <button [routerLink]="['/boxes', box.id, 'foods', 'new']" class="dropdown-item">Add food</button>
-            <button (click)="removeBox()" class="dropdown-item">Remove this box</button>
+            <button (click)="modal(content)" class="dropdown-item">Remove this box</button>
           </div>
         </div>
       </div>
@@ -49,3 +49,13 @@
     </div>
   </div>
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-body">
+    <p>Remove {{box.name}} ? This action can not be undone.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="d('Cross click')">Cancel</button>
+    <button type="button" class="btn btn-outline-danger" (click)="c('Close click')">Remove</button>
+  </div>
+</ng-template>

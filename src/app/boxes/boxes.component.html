@@ -29,7 +29,7 @@
           <a [routerLink]="['/boxes', box.id]">{{box.name}}</a>
         </div>
         <div *ngIf="box.notice" class="card-block">
-          <p class="card-text">{{box.notice}}</p>
+          <p class="card-text" [innerHtml]="box.notice | newlines"></p>
         </div>
         <ul class="list-group list-group-flush">
           <li *ngFor="let food of box.foods" class="list-group-item">

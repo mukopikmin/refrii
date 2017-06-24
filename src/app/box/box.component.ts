@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Params, ActivatedRoute, Router } from '@angular/router';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import { BoxService } from '../services/box.service';
 import { FoodService } from '../services/food.service';
@@ -21,6 +22,7 @@ export class BoxComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private modalService: NgbModal,
     private boxService: BoxService,
     private foodService: FoodService) { }
 
@@ -30,11 +32,11 @@ export class BoxComponent implements OnInit {
     });
   }
 
-  public createFood(): void {
+  createFood(): void {
     this.router.navigate(['/boxes', this.box.getId(), 'foods', 'new']);
   }
 
-  public removeFood(food: Food): void {
+  removeFood(food: Food): void {
     this.foodService.removeFood(food)
       .then(() => {
         return this.boxService.getBox(this.box.getId())
@@ -42,10 +44,15 @@ export class BoxComponent implements OnInit {
       .then(box => this.box = box);
   }
 
-  public removeBox(): void {
-    this.boxService.removeBox(this.box)
+  modal(content) {
+    this.modalService.open(content).result.then((result) => {
+      this.boxService.removeBox(this.box)
       .then(() => {
         this.router.navigate(['/boxes']);
       });
+    })
+    .catch(reason => {
+      // Do nothing
+    });
   }
 }

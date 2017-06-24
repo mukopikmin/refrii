@@ -101,6 +101,7 @@ export class FoodComponent implements OnInit {
         });
     })
     .catch(reason => {
+      // Do nothing
     });
   }
 }

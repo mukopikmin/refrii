@@ -28,17 +28,20 @@ export class SigninComponent implements OnInit {
     private authService: AuthService) { }
 
   ngOnInit() {
-    this._fail.subscribe((message) => this.failedMessage = message);
+    this._fail.subscribe(message => this.failedMessage = message);
     this._fail.debounceTime(this.alertLength).subscribe(() => this.failedMessage = null);
 
-    if (this.authService.verify()) {
-      this.router.navigate(['/']);
-    }
-    this.form = this.formBuilder.group({
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      submit: ['Sign in']
-    });
+    this.authService.getSignedinUser()
+      .then(user => {
+        this.router.navigate(['/']);
+      })
+      .catch(error => {
+        this.form = this.formBuilder.group({
+          email: ['', [Validators.required]],
+          password: ['', [Validators.required]],
+          submit: ['Sign in']
+        });
+      });
   }
 
   public submit(form): void {

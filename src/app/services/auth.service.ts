@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams } from '@angular/http';
 import { DatePipe } from '@angular/common';
-import { AuthHttp, tokenNotExpired } from 'angular2-jwt';
+import { AuthHttp } from 'angular2-jwt';
 import 'rxjs/add/operator/toPromise';
 
 import { environment } from '../../environments/environment';
@@ -16,21 +16,18 @@ export class AuthService {
     private http: Http,
     private datePipe: DatePipe) { }
 
-    public verify(): boolean {
-      const isNotExpired = tokenNotExpired('token');
-      if (!isNotExpired) {
-        localStorage.removeItem('token');
-      }
-
-      return isNotExpired;
-    }
-
     public getSignedinUser(): Promise<User> {
       return this.authHttp.get(`${this.endpoint}/users/verify`)
         .toPromise()
         .then(response => {
+          localStorage.setItem('user', JSON.stringify(response.json()));
           return new User(response.json());
         });
+    }
+
+    public signOut(): void {
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
     }
 
     public signup(name: string, email: string, password: string, passwordConfirm: string): Promise<User> {
@@ -45,9 +42,6 @@ export class AuthService {
         .toPromise()
         .then(response => {
           return new User(response.json());
-        })
-        .catch(error => {
-          console.log(error);
         });
     }
 

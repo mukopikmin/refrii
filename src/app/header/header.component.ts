@@ -17,24 +17,17 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     private router: Router) {
       this.router.events.subscribe(route => {
-        if (!this.user) {
-          this.bindUser();
+        const json = JSON.parse(localStorage.getItem('user'));
+        if (json) {
+          this.user = new User(json);
         }
       });
     }
 
-  ngOnInit() {
-    this.bindUser();
-  }
-
-  private bindUser(): void {
-    this.authService.getSignedinUser()
-      .then(user => this.user = user)
-      .catch(error => this.user = null);
-  }
+  ngOnInit() { }
 
   public signout(): void {
-    localStorage.removeItem('token');
+    this.authService.signOut();
     this.user = null;
     this.router.navigate(['/signin']);
   }

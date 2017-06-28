@@ -22,16 +22,19 @@ export class SignupComponent implements OnInit {
     private authService: AuthService) { }
 
   ngOnInit() {
-    if (this.authService.verify()) {
-      this.router.navigate(['/']);
-    }
-    this.form = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      password_confirm: ['', [Validators.required]],
-      submit: ['Create account']
-    });
+    this.authService.getSignedinUser()
+      .then(user => {
+        this.router.navigate(['/']);
+      })
+      .catch(error => {
+        this.form = this.formBuilder.group({
+          name: ['', [Validators.required]],
+          email: ['', [Validators.required]],
+          password: ['', [Validators.required]],
+          password_confirm: ['', [Validators.required]],
+          submit: ['Create account']
+        });
+      });
   }
 
   public submit(form): void {

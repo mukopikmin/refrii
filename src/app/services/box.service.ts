@@ -75,8 +75,7 @@ export class BoxService {
           return new Food(json);
         }));
         return box;
-      })
-      .catch(error => console.log(error));
+      });
   }
 
   public createBox(name: string, notice: string): Promise<Box> {

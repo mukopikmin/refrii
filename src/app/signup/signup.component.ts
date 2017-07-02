@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs/Subject';
 
 import { environment } from '../../environments/environment';
 import { AuthService } from '../services/auth.service';
@@ -13,8 +14,10 @@ import { AuthService } from '../services/auth.service';
 })
 export class SignupComponent implements OnInit {
   public form: FormGroup;
+  public failedMessage: string;
 
-  private isFailed: boolean = false;
+  private _fail = new Subject<string>();
+  private alertLength: number = 10000;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -22,6 +25,9 @@ export class SignupComponent implements OnInit {
     private authService: AuthService) { }
 
   ngOnInit() {
+    this._fail.subscribe((message) => this.failedMessage = message);
+    this._fail.debounceTime(this.alertLength).subscribe(() => this.failedMessage = null);
+
     this.authService.getSignedinUser()
       .then(user => {
         this.router.navigate(['/']);
@@ -39,7 +45,7 @@ export class SignupComponent implements OnInit {
 
   public submit(form): void {
     if (this.form.status === 'INVALID') {
-      this.isFailed = true;
+      this._fail.next('All form should be filled correctly.');
       return;
     }
     const params = form.value;
@@ -51,6 +57,6 @@ export class SignupComponent implements OnInit {
         localStorage.setItem('token', cred.jwt);
         this.router.navigate(['/']);
       })
-      .catch(error => { this.isFailed = true });
+      .catch(error => this._fail.next(error.json().message));
   }
 }

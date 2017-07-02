@@ -2,10 +2,9 @@
   <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-      <div *ngIf="isFailed" class="alert alert-danger" role="alert">
-        Email address or Password is invalid.
-      </div>
-      <form [formGroup]="form" (ngSubmit)="submit(form)">
+      <ngb-alert *ngIf="failedMessage" type="danger" (close)="failedMessage = null">{{failedMessage}}</ngb-alert>
+
+      <form *ngIf="form" [formGroup]="form" (ngSubmit)="submit(form)">
         <div class="form-group">
           <label for="name">Name</label>
           <input type="name" class="form-control" id="name" placeholder="Enter name" [formControl]="form.controls['name']">

@@ -71,11 +71,7 @@ export class NewFoodComponent implements OnInit {
     const date = new Date(params.expirationDate);
 
     this.foodService.createFood(params.name, params.notice, params.amount, date, unit, this.box)
-      .then(food => {
-        this.router.navigate(['/boxes', this.box.getId()]);
-      })
-      .catch(error => {
-        this._fail.next('Food name, amount and unit is required.');
-      });
+      .then(food => this.router.navigate(['/boxes', this.box.getId()]))
+      .catch(error => this._fail.next(error.json().message));
   }
 }

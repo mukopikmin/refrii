@@ -24,12 +24,21 @@
   <div class="row">
     <div *ngFor="let box of boxes" class="col-md-6">
       <div class="card">
-        <div class="card-header">
-          <span *ngIf="box.isInvited"><fa name="chain-broken"></fa></span>
-          <a [routerLink]="['/boxes', box.id]">{{box.name}}</a>
+        <div class="card-img-top">
+          <img *ngIf="!box.base64image" src="assets/noimage.svg">
+          <img *ngIf="box.base64image" src="{{box.base64image}}">
         </div>
-        <div *ngIf="box.notice" class="card-block">
+        <div class="card-block">
+          <h5>
+            <span *ngIf="box.isInvited">
+              <fa name="chain-broken"></fa>
+            </span>
+            <a [routerLink]="['/boxes', box.id]">{{box.name}}</a>
+          </h5>
           <p class="card-text" [innerHtml]="box.notice | newlines"></p>
+        </div>
+        <div *ngIf="box.foods.length == 0" class="card-block no-foods">
+          <p>No foods</p>
         </div>
         <ul class="list-group list-group-flush">
           <li *ngFor="let food of box.foods" class="list-group-item">

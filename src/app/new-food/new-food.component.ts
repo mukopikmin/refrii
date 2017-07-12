@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Params, ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
@@ -56,6 +56,7 @@ export class NewFoodComponent implements OnInit {
         amount: [0, [Validators.required]],
         expirationDate: [this.datePipe.transform(new Date(), 'yyyy-MM-dd'), [Validators.required]],
         unit: ['', [Validators.required]],
+        image: [],
         submit: ['Add new food']
       });
     });
@@ -70,8 +71,12 @@ export class NewFoodComponent implements OnInit {
     const unit = this.units.filter(unit => unit.getId() === Number(params.unit))[0];
     const date = new Date(params.expirationDate);
 
-    this.foodService.createFood(params.name, params.notice, params.amount, date, unit, this.box)
+    this.foodService.createFood(params.name, params.notice, params.amount, date, unit, this.box, params.image)
       .then(food => this.router.navigate(['/boxes', this.box.getId()]))
       .catch(error => this._fail.next(error.json().message));
+  }
+
+  public upload(event: any) {
+    this.form.patchValue({ image: event.target.files[0] });
   }
 }

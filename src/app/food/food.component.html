@@ -56,11 +56,11 @@
             </div>
           </div>
 
-          <label>Created</label>
-          <p>{{food.createdAt | date: 'yyyy/MM/dd HH:mm'}}</p>
-
           <label>Last update</label>
-          <p>{{food.updatedAt | date: 'yyyy/MM/dd HH:mm'}}</p>
+          <p>{{food.updatedAt | date: 'yyyy/MM/dd HH:mm'}} ({{food.updatedUser.name}})</p>
+
+          <label>Created</label>
+          <p>{{food.createdAt | date: 'yyyy/MM/dd HH:mm'}} ({{food.createdUser.name}})</p>
 
           <div class="row">
             <div class="col-sm-6">

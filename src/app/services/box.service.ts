@@ -60,6 +60,18 @@ export class BoxService {
       });
   }
 
+  public getImage(box: Box): Promise<any> {
+    const url = `${this.endpoint}/boxes/${box.getId()}/image`;
+    const params: URLSearchParams = new URLSearchParams();
+    params.set('base64', 'true');
+
+    return this.authHttp.get(url, { search: params })
+      .toPromise()
+      .then(response => {
+        return response.json();
+      });
+  }
+
   public updateBox(box: Box): Promise<Box> {
     const data = new FormData();
     data.append('name', box.getName());

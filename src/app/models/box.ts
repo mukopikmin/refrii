@@ -6,6 +6,8 @@ export class Box {
   private name: string;
   private notice: string;
   private isInvited: boolean;
+  private imageUrl: string;
+  private base64image: string;
   private createdAt: Date;
   private updatedAt: Date;
   private user: User;
@@ -16,6 +18,7 @@ export class Box {
     this.name = json.name;
     this.notice = json.notice;
     this.isInvited = json.is_invited;
+    this.imageUrl = json.image_url;
     this.createdAt = new Date(json.created_at);
     this.updatedAt = new Date(json.updated_at);
   }
@@ -40,6 +43,10 @@ export class Box {
     return this.foods;
   }
 
+  public getImageUrl(): string {
+    return this.imageUrl;
+  }
+
   public setName(name: string): void {
     this.name = name;
   }
@@ -55,6 +62,8 @@ export class Box {
   public setFoods(foods: Food[]): void {
     this.foods = foods;
   }
+
+  public setBase64image(str: string): void { this.base64image = str }
 }
 
 export enum BoxType {

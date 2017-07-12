@@ -34,6 +34,10 @@
           </div>
         </div>
         <div class="form-group">
+          <label for="image">Image</label>
+          <input type="file" class="form-control" id="image" (change)="upload($event)">
+        </div>
+        <div class="form-group">
           <label for="expirationDate">Expiration date</label>
           <input type="date" class="form-control" id="expirationDate" placeholder="Enter expiration date" [formControl]="form.controls['expirationDate']">
         </div>

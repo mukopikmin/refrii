@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { BoxService } from '../services/box.service';
 import { UnitService } from '../services/unit.service';
+import { UserService } from '../services/user.service';
 import { Box, BoxType } from '../models/box';
 import { User } from '../models/user';
 import { Unit } from '../models/unit';
@@ -15,7 +16,8 @@ import { Unit } from '../models/unit';
   providers: [
     AuthService,
     BoxService,
-    UnitService
+    UnitService,
+    UserService
   ]
 })
 export class UserComponent implements OnInit {
@@ -28,15 +30,21 @@ export class UserComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private boxService: BoxService,
-    private unitService: UnitService) { }
+    private unitService: UnitService,
+    private userService: UserService) { }
 
   ngOnInit() {
     this.authService.getSignedinUser()
       .then(user => {
         this.user = user;
+        if (user.getAvatarUrl()) {
+          this.userService.getAvatar(user).then(avatar => {
+            user.setBase64avatar(`data:${avatar.content_type};base64,${avatar.base64}`);
+          });
+        }
         return Promise.all([
           this.boxService.getBoxes(BoxType.Owns),
-          this.boxService.getBoxes(BoxType.Invited)
+          this.boxService.getBoxes(BoxType.Invited),
         ]);
       })
       .then(result => {

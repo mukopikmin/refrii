@@ -44,4 +44,16 @@ export class UserService {
         return new User(response.json());
       });
   }
+
+  public getAvatar(user: User): Promise<any> {
+    const url = `${this.endpoint}/users/${user.getId()}/avatar`;
+    const params: URLSearchParams = new URLSearchParams();
+    params.set('base64', 'true');
+
+    return this.authHttp.get(url, { search: params })
+      .toPromise()
+      .then(response => {
+        return response.json();
+      });
+  }
 }

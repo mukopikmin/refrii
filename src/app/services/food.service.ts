@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
 import { Food } from '../models/food';
 import { Box } from '../models/box';
 import { Unit } from '../models/unit';
+import { User } from '../models/user';
 
 @Injectable()
 export class FoodService {
@@ -26,17 +27,32 @@ export class FoodService {
         const food = new Food(json);
         food.setBox(new Box(json.box));
         food.setUnit(new Unit(json.unit));
+        food.setCreatedUser(new User(json.created_user));
+        food.setUpdatedUser(new User(json.updated_user));
         return food;
       });
   }
 
-  public createFood(name: string, notice: string, amount: number, expirationDate: Date, unit: Unit, box: Box): Promise<Food> {
+  public getImage(food: Food): Promise<any> {
+    const url = `${this.endpoint}/foods/${food.getId()}/image`;
+    const params: URLSearchParams = new URLSearchParams();
+    params.set('base64', 'true');
+
+    return this.authHttp.get(url, { search: params })
+      .toPromise()
+      .then(response => {
+        return response.json();
+      });
+  }
+
+  public createFood(name: string, notice: string, amount: number, expirationDate: Date, unit: Unit, box: Box, image: File): Promise<Food> {
     const url = `${this.endpoint}/foods`;
     const data = new FormData();
     data.append('name', name);
     data.append('notice', notice || '');
     data.append('amount', amount.toString());
     data.append('expiration_date', this.datePipe.transform(expirationDate, 'yyyy-MM-dd'));
+    data.append('image', image);
     data.append('unit_id', unit.getId().toString());
     data.append('box_id', box.getId().toString());
 

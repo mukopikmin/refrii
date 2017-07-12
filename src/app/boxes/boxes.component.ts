@@ -18,7 +18,16 @@ export class BoxesComponent implements OnInit {
     private boxService: BoxService) { }
 
   ngOnInit() {
-    this.boxService.getBoxes().then(boxes => this.boxes = boxes);
+    this.boxService.getBoxes().then(boxes => {
+      this.boxes = boxes;
+      this.boxes.forEach(box => {
+        if (box.getImageUrl()) {
+          this.boxService.getImage(box).then(image => {
+              box.setBase64image(`data:${image.content_type};base64,${image.base64}`);
+          });
+        }
+      });
+    });
   }
 
   public createBox(): void {

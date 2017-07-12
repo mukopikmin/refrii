@@ -2,7 +2,6 @@
   <div *ngIf="!box" class="loading">
     <fa name="circle-o-notch" [spin]="true" [size]="2"></fa>
   </div>
-
   <div *ngIf="box">
     <div class="row">
       <div class="col-sm-8">
@@ -17,6 +16,7 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown">
             <button [routerLink]="['/boxes', box.id, 'edit']" class="dropdown-item">Edit box</button>
             <button [routerLink]="['/boxes', box.id, 'foods', 'new']" class="dropdown-item">Add food</button>
+            <button [routerLink]="['/boxes', box.id, 'invite']" class="dropdown-item">Share this box</button>
             <button (click)="modal(content)" class="dropdown-item">Remove this box</button>
           </div>
         </div>
@@ -28,10 +28,14 @@
     <div class="row">
       <div *ngFor="let food of box.foods" class="col-lg-4 col-sm-6">
         <div class="card">
-          <div class="card-header">
-            <a [routerLink]="['/foods', food.id]">{{food.name}}</a>
+          <div class="card-img-top">
+            <img *ngIf="!food.base64image" src="assets/noimage.svg" alt="">
+            <img *ngIf="food.base64image" src="{{food.base64image}}">
           </div>
-          <div *ngIf="food.notice" class="card-block">
+          <div class="card-block">
+            <h5>
+              <a [routerLink]="['/foods', food.id]">{{food.name}}</a>
+            </h5>
             <p class="card-text" [innerHtml]="food.notice | newlines"></p>
           </div>
           <table class="table">

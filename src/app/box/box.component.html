@@ -29,7 +29,7 @@
       <div *ngFor="let food of box.foods" class="col-lg-4 col-sm-6">
         <div class="card">
           <div class="card-img-top">
-            <img *ngIf="!food.base64image" src="assets/noimage.svg" alt="">
+            <img *ngIf="!food.base64image" src="/assets/noimage.svg" alt="">
             <img *ngIf="food.base64image" src="{{food.base64image}}">
           </div>
           <div class="card-block">

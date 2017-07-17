@@ -48,7 +48,8 @@ export class FoodComponent implements OnInit {
 
         this.form = this.formBuilder.group({
           amount: [amount, Validators.required],
-          expirationDate: [expirationDate, null]
+          expirationDate: [expirationDate, null],
+          needsAdding: [food.isNeedsAdding(), Validators.required]
         });
       });
     });
@@ -69,8 +70,8 @@ export class FoodComponent implements OnInit {
   }
 
   apply() {
+    this.food.setNeedsAdding(this.form.value.needsAdding);
     this.foodService.updateFood(this.food).then(food => {
-      this.food = food;
       this._success.next(`Food '${this.food.getName()}' is successfully updated.`);
     });
   }

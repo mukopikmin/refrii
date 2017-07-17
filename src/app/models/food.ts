@@ -12,6 +12,7 @@ export class Food {
   private box: Box;
   private imageUrl: string;
   private base64image: string;
+  private needsAdding: boolean;
   private createdAt: Date;
   private updatedAt: Date;
   private createdUser: User;
@@ -24,6 +25,7 @@ export class Food {
     this.amount = json.amount;
     this.expirationDate = new Date(json.expiration_date);
     this.imageUrl = json.image_url;
+    this.needsAdding = json.needs_adding;
     this.createdAt = new Date(json.created_at);
     this.updatedAt = new Date(json.updated_at);
   }
@@ -67,9 +69,8 @@ export class Food {
     return this.box;
   }
 
-  public getImageUrl(): string {
-    return this.imageUrl;
-  }
+  public getImageUrl(): string { return this.imageUrl }
+  public isNeedsAdding(): boolean { return this.needsAdding }
 
   public decrement(weight: number = 1) {
     this.amount -= this.unit.getStep() * weight;
@@ -102,4 +103,5 @@ export class Food {
   public setCreatedUser(user: User) { this.createdUser = user }
   public setUpdatedUser(user: User) { this.updatedUser = user }
   public setBase64image(str: string) { this.base64image = str }
+  public setNeedsAdding(need: boolean) { this.needsAdding = need }
 }

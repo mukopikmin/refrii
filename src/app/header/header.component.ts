@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterContentChecked } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../services/auth.service';
@@ -10,21 +10,19 @@ import { User } from '../models/user';
   styleUrls: ['./header.component.css'],
   providers: [AuthService]
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements AfterContentChecked {
   public user: User;
 
   constructor(
     private authService: AuthService,
-    private router: Router) {
-      this.router.events.subscribe(route => {
-        const json = JSON.parse(localStorage.getItem('user'));
-        if (json) {
-          this.user = new User(json);
-        }
-      });
-    }
+    private router: Router) { }
 
-  ngOnInit() { }
+  ngAfterContentChecked() {
+    const json = JSON.parse(localStorage.getItem('user'));
+    if (json) {
+      this.user = new User(json);
+    }
+  }
 
   public signout(): void {
     this.authService.signOut();

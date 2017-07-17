@@ -16,7 +16,7 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown">
             <button [routerLink]="['/boxes', box.id, 'edit']" class="dropdown-item">Edit box</button>
             <button [routerLink]="['/boxes', box.id, 'foods', 'new']" class="dropdown-item">Add food</button>
-            <button [routerLink]="['/boxes', box.id, 'invite']" class="dropdown-item">Share this box</button>
+            <button [routerLink]="['/boxes', box.id, 'invite']" class="dropdown-item" [disabled]="box.isInvited">Share this box</button>
             <button (click)="modal(content)" class="dropdown-item">Remove this box</button>
           </div>
         </div>
@@ -26,8 +26,8 @@
     <p [innerHtml]="box.notice | newlines"></p>
 
     <div class="row">
-      <div *ngFor="let food of box.foods" class="col-lg-4 col-sm-6">
-        <div class="card">
+      <div *ngFor="let food of box.foods | foodOrder" class="col-lg-4 col-sm-6">
+        <div class="card" [ngClass]="{'card-outline-danger': food.needsAdding}">
           <div class="card-img-top">
             <img *ngIf="!food.base64image" src="/assets/noimage.svg" alt="">
             <img *ngIf="food.base64image" src="{{food.base64image}}">

@@ -31,6 +31,7 @@ import { InvitedBoxesPipe } from './pipes/invited-boxes.pipe';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { EditFoodComponent } from './edit-food/edit-food.component';
 import { GoogleAuthorizedComponent } from './google-authorized/google-authorized.component';
+import { FoodOrderPipe } from './pipes/food-order.pipe';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig(), http, options);
@@ -116,7 +117,8 @@ const routes: Routes = [
     EditUserComponent,
     EditFoodComponent,
     GoogleAuthorizedComponent,
-    NewlinesPipe
+    NewlinesPipe,
+    FoodOrderPipe
   ],
   imports: [
     BrowserModule,

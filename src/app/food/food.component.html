@@ -8,17 +8,16 @@
 
       <div *ngIf="food">
         <form [formGroup]="form">
-          <div class="row">
-            <div class="col-sm-10">
-              <h5>
-                <span *ngIf="food.box.isInvited"><fa name="chain-broken"></fa></span>
-                <a [routerLink]="['/boxes', food.box.id]">{{food.box.name}}</a> / {{food.name}}
-              </h5>
-            </div>
-            <div class="col-sm-2">
-              <a id="actions" [routerLink]="['/foods', food.id, 'edit']" class="btn btn-outline-primary">Edit food</a>
-            </div>
-          </div>
+          <h5>
+            <span *ngIf="food.box.isInvited"><fa name="chain-broken"></fa></span>
+            <a [routerLink]="['/boxes', food.box.id]">{{food.box.name}}</a> / {{food.name}}
+          </h5>
+
+          <p>
+            <a id="actions" [routerLink]="['/foods', food.id, 'edit']" class="btn btn-outline-primary">Edit food</a>
+          </p>
+          <br>
+          <br>
 
           <p [innerHtml]="food.notice | newlines"></p>
 
@@ -56,6 +55,14 @@
             </div>
           </div>
 
+          <label class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" [formControl]="form.controls['needsAdding']">
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">Needs adding?</span>
+          </label>
+
+          <hr>
+
           <label>Last update</label>
           <p>{{food.updatedAt | date: 'yyyy/MM/dd HH:mm'}} ({{food.updatedUser.name}})</p>
 
@@ -64,10 +71,10 @@
 
           <div class="row">
             <div class="col-sm-6">
-              <button (click)="apply()" class="btn btn-outline-primary btn-block">Update</button>
+              <button (click)="apply()" id="update" class="btn btn-outline-primary btn-block">Update</button>
             </div>
             <div class="col-sm-6">
-              <button (click)="modal(content)" class="btn btn-outline-danger btn-block">Remove</button>
+              <button (click)="modal(content)" id="remove" class="btn btn-outline-danger btn-block">Remove</button>
             </div>
           </div>
         </form>

@@ -41,7 +41,7 @@
           <p>No foods</p>
         </div>
         <ul class="list-group list-group-flush">
-          <li *ngFor="let food of box.foods" class="list-group-item">
+          <li *ngFor="let food of box.foods | foodOrder" class="list-group-item" [ngClass]="{'list-group-item-danger': food.needsAdding}">
             {{food.name}} ({{food.expirationDate | date: 'yyyy/MM/dd'}})
           </li>
         </ul>

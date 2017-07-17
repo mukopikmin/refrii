@@ -32,6 +32,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { EditFoodComponent } from './edit-food/edit-food.component';
 import { GoogleAuthorizedComponent } from './google-authorized/google-authorized.component';
 import { FoodOrderPipe } from './pipes/food-order.pipe';
+import { FoodFilterPipe } from './pipes/food-filter.pipe';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig(), http, options);
@@ -118,7 +119,8 @@ const routes: Routes = [
     EditFoodComponent,
     GoogleAuthorizedComponent,
     NewlinesPipe,
-    FoodOrderPipe
+    FoodOrderPipe,
+    FoodFilterPipe
   ],
   imports: [
     BrowserModule,

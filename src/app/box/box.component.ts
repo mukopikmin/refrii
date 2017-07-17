@@ -18,6 +18,7 @@ import { Food } from '../models/food';
 })
 export class BoxComponent implements OnInit {
   public box: Box;
+  public query: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -54,6 +55,10 @@ export class BoxComponent implements OnInit {
         return this.boxService.getBox(this.box.getId())
       })
       .then(box => this.box = box);
+  }
+
+  queryChange(event: any) {
+    this.query = event.target.value;
   }
 
   modal(content) {

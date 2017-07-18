@@ -12,6 +12,7 @@ export class Box {
   private updatedAt: Date;
   private user: User;
   private foods: Food[];
+  private invitedUsers: User[];
 
   constructor(json: any) {
     this.id = json.id;
@@ -64,6 +65,7 @@ export class Box {
   }
 
   public setBase64image(str: string): void { this.base64image = str }
+  public setInvitedUsers(users: User[]) { this.invitedUsers = users }
 }
 
 export enum BoxType {

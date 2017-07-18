@@ -39,6 +39,9 @@ export class BoxService {
           box.setFoods(json.foods.map(food => {
             return new Food(food);
           }));
+          box.setInvitedUsers(json.invited_users.map(user => {
+            return new User(user);
+          }));
           return box;
         });
       });
@@ -55,6 +58,9 @@ export class BoxService {
           const food = new Food(json);
           food.setUnit(new Unit(json.unit));
           return food;
+        }));
+        box.setInvitedUsers(json.invited_users.map(user => {
+          return new User(user);
         }));
         return box;
       });

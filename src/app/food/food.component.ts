@@ -67,6 +67,9 @@ export class FoodComponent implements OnInit {
     this.form.patchValue({
       amount: this.decimalPipe.transform(this.food.getAmount(), '1.0-1')
     });
+    this.form.patchValue({
+      needsAdding: false
+    });
   }
 
   apply() {

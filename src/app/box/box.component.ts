@@ -34,7 +34,6 @@ export class BoxComponent implements OnInit {
           this.box = box;
           this.box.getFoods().forEach(food => {
             if (food.getImageUrl()) {
-              console.log(food)
               this.foodService.getImage(food)
                 .then(image => {
                   food.setBase64image(`data:${image.content_type};base64,${image.base64}`);

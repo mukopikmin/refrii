@@ -10,7 +10,7 @@ export class Box {
   private base64image: string;
   private createdAt: Date;
   private updatedAt: Date;
-  private user: User;
+  private owner: User;
   private foods: Food[];
   private invitedUsers: User[];
 
@@ -57,7 +57,7 @@ export class Box {
   }
 
   public setUser(user: User): void {
-    this.user = user;
+    this.owner = user;
   }
 
   public setFoods(foods: Food[]): void {

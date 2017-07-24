@@ -35,7 +35,7 @@ export class BoxService {
       .then(response => {
         return response.json().map(json => {
           const box =  new Box(json);
-          box.setUser(new User(json.user));
+          box.setUser(new User(json.owner));
           box.setFoods(json.foods.map(food => {
             return new Food(food);
           }));
@@ -53,7 +53,7 @@ export class BoxService {
       .then(response => {
         const json = response.json();
         const box = new Box(json);
-        box.setUser(new User(json.user));
+        box.setUser(new User(json.owner));
         box.setFoods(json.foods.map(json => {
           const food = new Food(json);
           food.setUnit(new Unit(json.unit));
@@ -88,7 +88,7 @@ export class BoxService {
       .then(response => {
         const json = response.json();
         const box = new Box(json);
-        box.setUser(new User(json.user));
+        box.setUser(new User(json.owner));
         box.setFoods(json.foods.map(json => {
           return new Food(json);
         }));

@@ -33,6 +33,8 @@ import { EditFoodComponent } from './edit-food/edit-food.component';
 import { GoogleAuthorizedComponent } from './google-authorized/google-authorized.component';
 import { FoodOrderPipe } from './pipes/food-order.pipe';
 import { FoodFilterPipe } from './pipes/food-filter.pipe';
+import { TermsofserviceComponent } from './termsofservice/termsofservice.component';
+import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig(), http, options);
@@ -96,6 +98,12 @@ const routes: Routes = [
     path: 'foods/:id/edit',
     component: EditFoodComponent,
     canActivate: [AuthGuard]
+  }, {
+    path: 'privacypolicy',
+    component: PrivacypolicyComponent
+  }, {
+    path: 'termsofservice',
+    component: TermsofserviceComponent
   }
 ];
 
@@ -120,7 +128,9 @@ const routes: Routes = [
     GoogleAuthorizedComponent,
     NewlinesPipe,
     FoodOrderPipe,
-    FoodFilterPipe
+    FoodFilterPipe,
+    TermsofserviceComponent,
+    PrivacypolicyComponent
   ],
   imports: [
     BrowserModule,

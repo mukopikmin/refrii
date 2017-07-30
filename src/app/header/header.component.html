@@ -1,6 +1,9 @@
 <nav class="navbar fixed-top navbar-light bg-faded">
   <div class="container">
-    <a class="navbar-brand" routerLink="/">Refrii</a>
+    <a class="navbar-brand" routerLink="/">
+      <img src="/assets/icon.png" id="logo">&nbsp;
+      Refrii
+    </a>
 
     <button *ngIf="!user" id="signin" class="btn btn-outline-success" [routerLink]="['/signin']">Signin</button>
 
@@ -10,6 +13,9 @@
         <button [routerLink]="['/boxes/new']" class="dropdown-item">Add box</button>
         <button [routerLink]="['/user']" class="dropdown-item">User info</button>
         <button (click)="signout()" class="dropdown-item">Sign out</button>
+        <div class="dropdown-divider"></div>
+        <button [routerLink]="['/termsofservice']" class="dropdown-item">Terms of service</button>
+        <button [routerLink]="['/privacypolicy']" class="dropdown-item">Privacy policy</button>
       </div>
     </div>
   </div>

@@ -74,6 +74,9 @@ export class FoodComponent implements OnInit {
 
   apply() {
     this.food.setNeedsAdding(this.form.value.needsAdding);
+    this.food.setExpirationDate(this.form.value.expirationDate);
+    this.food.setAmount(this.form.value.amount);
+
     this.foodService.updateFood(this.food).then(food => {
       this._success.next(`Food '${this.food.getName()}' is successfully updated.`);
     });

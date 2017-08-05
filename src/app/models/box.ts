@@ -2,70 +2,43 @@ import { User } from './user';
 import { Food } from './food';
 
 export class Box {
-  private id: number;
-  private name: string;
-  private notice: string;
-  private isInvited: boolean;
-  private imageUrl: string;
-  private base64image: string;
-  private createdAt: Date;
-  private updatedAt: Date;
-  private owner: User;
-  private foods: Food[];
-  private invitedUsers: User[];
+  constructor(
+    public id: number,
+    public name: string,
+    public notice: string,
+    public isInvited: boolean,
+    public imageUrl: string,
+    public base64image: string,
+    public createdAt: Date,
+    public updatedAt: Date,
+    public owner: User,
+    public foods: Food[],
+    public invitedUsers: User[]
+  ) {}
 
-  constructor(json: any) {
-    this.id = json.id;
-    this.name = json.name;
-    this.notice = json.notice;
-    this.isInvited = json.is_invited;
-    this.imageUrl = json.image_url;
-    this.createdAt = new Date(json.created_at);
-    this.updatedAt = new Date(json.updated_at);
+  public static parse(json: any): Box {
+    const owner = json.owner ? User.parse(json.owner) : null;
+    const foods = json.foods ? json.foods.map(food => {
+      return Food.parse(food);
+    }) : null;
+    const invitedUsers = json.invited_users ? json.invited_users.map(user => {
+      return User.parse(user);
+    }) : null;
+
+    return new Box(
+      json.id,
+      json.name,
+      json.notice,
+      json.is_invited,
+      json.imageUrl,
+      null,
+      new Date(json.crated_at),
+      new Date(json.updated_at),
+      owner,
+      foods,
+      invitedUsers
+    );
   }
-
-  public getId(): number {
-    return this.id;
-  }
-
-  public getName(): string {
-    return this.name;
-  }
-
-  public getNotice(): string {
-    return this.notice;
-  }
-
-  public getIsInvited(): boolean {
-    return this.isInvited;
-  }
-
-  public getFoods(): Food[] {
-    return this.foods;
-  }
-
-  public getImageUrl(): string {
-    return this.imageUrl;
-  }
-
-  public setName(name: string): void {
-    this.name = name;
-  }
-
-  public setNotice(notice: string): void {
-    this.notice = notice;
-  }
-
-  public setUser(user: User): void {
-    this.owner = user;
-  }
-
-  public setFoods(foods: Food[]): void {
-    this.foods = foods;
-  }
-
-  public setBase64image(str: string): void { this.base64image = str }
-  public setInvitedUsers(users: User[]) { this.invitedUsers = users }
 }
 
 export enum BoxType {

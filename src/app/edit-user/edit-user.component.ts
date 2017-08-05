@@ -33,8 +33,8 @@ export class EditUserComponent implements OnInit {
       .then(user => {
         this.user = user;
         this.form = this.formBuilder.group({
-          name: [user.getName(), [Validators.required]],
-          email: [user.getEmail(), [Validators.required]],
+          name: [user.name, [Validators.required]],
+          email: [user.email, [Validators.required]],
           password: [],
           password_confirm: [],
           submit: ['Update account']
@@ -48,8 +48,8 @@ export class EditUserComponent implements OnInit {
       return;
     }
 
-    form.value.id = this.user.getId();
-    const user = new User(form.value);
+    form.value.id = this.user.id;
+    const user = User.parse(form.value);
 
     this.userService.update(user, form.value.password, form.value.password_confirm)
       .then(user => {

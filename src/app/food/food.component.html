@@ -22,6 +22,7 @@
           <p [innerHtml]="food.notice | newlines"></p>
 
           <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{successMessage}}</ngb-alert>
+          <ngb-alert *ngIf="failMessage" type="danger" (close)="failMessage = null">{{failMessage}}</ngb-alert>
 
           <div class="form-group">
             <label for="amount">Amount</label>

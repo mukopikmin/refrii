@@ -9,8 +9,8 @@ export class FoodOrderPipe implements PipeTransform {
 
   transform(array: Array<Food>): Array<object> {
     return array.sort((a, b) => {
-        if(a.isNeedsAdding() > b.isNeedsAdding()) return -1;
-        if(a.isNeedsAdding() < b.isNeedsAdding()) return 1;
+        if(a.needsAdding > b.needsAdding) return -1;
+        if(a.needsAdding < b.needsAdding) return 1;
         return 0;
       });
   }

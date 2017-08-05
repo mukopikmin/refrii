@@ -43,7 +43,7 @@ export class NewBoxComponent implements OnInit {
     const params = form.value;
 
     this.boxService.createBox(params.name, params.notice)
-      .then(box => this.router.navigate(['/boxes', box.getId()]))
+      .then(box => this.router.navigate(['/boxes', box.id]))
       .catch(error => this._fail.next(error.json().message));
   }
 }

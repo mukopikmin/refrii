@@ -37,9 +37,9 @@ export class UserComponent implements OnInit {
     this.authService.getSignedinUser()
       .then(user => {
         this.user = user;
-        if (user.getAvatarUrl()) {
+        if (user.avatarUrl) {
           this.userService.getAvatar(user).then(avatar => {
-            user.setBase64avatar(`data:${avatar.content_type};base64,${avatar.base64}`);
+            user.base64avatar = `data:${avatar.content_type};base64,${avatar.base64}`;
           });
         }
         return Promise.all([
@@ -85,6 +85,6 @@ export class UserComponent implements OnInit {
   }
 
   public invite(box: Box): void {
-    this.router.navigate(['/boxes', box.getId(), 'invite']);
+    this.router.navigate(['/boxes', box.id, 'invite']);
   }
 }

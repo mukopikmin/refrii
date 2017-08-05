@@ -21,7 +21,7 @@ export class AuthService {
         .toPromise()
         .then(response => {
           localStorage.setItem('user', JSON.stringify(response.json()));
-          return new User(response.json());
+          return User.parse(response.json());
         });
     }
 
@@ -41,7 +41,7 @@ export class AuthService {
       return this.http.post(url, data)
         .toPromise()
         .then(response => {
-          return new User(response.json());
+          return User.parse(response.json());
         });
     }
 

@@ -25,28 +25,28 @@ export class UserService {
     return this.authHttp.get(url, { search: params})
       .toPromise()
       .then(response => {
-        return new User(response.json());
+        return User.parse(response.json());
       });
   }
 
   public update(user: User, password: string, passwordConfirm: string): Promise<User> {
     const data = new FormData();
-    data.append('name', user.getName());
-    data.append('email', user.getEmail());
+    data.append('name', user.name);
+    data.append('email', user.email);
     if (password) {
       data.append('password', password);
       data.append('password_confirmation', passwordConfirm);
     }
 
-    return this.authHttp.put(`${this.endpoint}/users/${user.getId()}`, data)
+    return this.authHttp.put(`${this.endpoint}/users/${user.id}`, data)
       .toPromise()
       .then(response => {
-        return new User(response.json());
+        return User.parse(response.json());
       });
   }
 
   public getAvatar(user: User): Promise<any> {
-    const url = `${this.endpoint}/users/${user.getId()}/avatar`;
+    const url = `${this.endpoint}/users/${user.id}/avatar`;
     const params: URLSearchParams = new URLSearchParams();
     params.set('base64', 'true');
 

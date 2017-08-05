@@ -14,7 +14,7 @@ export class FoodFilterPipe implements PipeTransform {
       return array;
     } else {
       return array.filter(item => {
-        if (item.getName().toLowerCase().indexOf(query) != -1) {
+        if (item.name.toLowerCase().indexOf(query) != -1) {
           return true;
         } else {
           return false;

@@ -1,23 +1,19 @@
 export class Unit {
-  private id: number;
-  private label: string;
-  private step: number;
-  private createdAt: Date;
-  private updatedAt: Date;
+  constructor(
+    public id: number,
+    public label: string,
+    public step: number,
+    public createdAt: Date,
+    public updatedAt: Date
+  ) { }
 
-  constructor(json) {
-    this.id = json.id;
-    this.label = json.label;
-    this.step = json.step;
-    this.createdAt = new Date(json.created_at);
-    this.updatedAt = new Date(json.updated_at);
-  }
-
-  public getId(): number {
-    return this.id;
-  }
-
-  public getStep(): number {
-    return this.step;
+  public static parse(json: any): Unit {
+    return new Unit(
+      json.id,
+      json.label,
+      json.step,
+      new Date(json.crated_at),
+      new Date(json.updated_at)
+    );
   }
 }

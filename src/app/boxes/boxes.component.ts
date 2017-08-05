@@ -12,6 +12,7 @@ import { Box } from '../models/box';
 })
 export class BoxesComponent implements OnInit {
   public boxes: Box[];
+  public today: Date = new Date();
 
   constructor(
     private router: Router,
@@ -21,9 +22,9 @@ export class BoxesComponent implements OnInit {
     this.boxService.getBoxes().then(boxes => {
       this.boxes = boxes;
       this.boxes.forEach(box => {
-        if (box.getImageUrl()) {
+        if (box.imageUrl) {
           this.boxService.getImage(box).then(image => {
-              box.setBase64image(`data:${image.content_type};base64,${image.base64}`);
+            box.base64image = `data:${image.content_type};base64,${image.base64}`;
           });
         }
       });

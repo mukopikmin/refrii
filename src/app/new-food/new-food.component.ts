@@ -68,11 +68,11 @@ export class NewFoodComponent implements OnInit {
       return;
     }
     const params = form.value;
-    const unit = this.units.filter(unit => unit.getId() === Number(params.unit))[0];
+    const unit = this.units.filter(unit => unit.id === Number(params.unit))[0];
     const date = new Date(params.expirationDate);
 
     this.foodService.createFood(params.name, params.notice, params.amount, date, unit, this.box, params.image)
-      .then(food => this.router.navigate(['/boxes', this.box.getId()]))
+      .then(food => this.router.navigate(['/boxes', this.box.id]))
       .catch(error => this._fail.next(error.json().message));
   }
 

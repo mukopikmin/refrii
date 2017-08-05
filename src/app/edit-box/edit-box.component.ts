@@ -28,8 +28,8 @@ export class EditBoxComponent implements OnInit {
         .then(box => {
           this.box = box;
           this.form = this.formBuilder.group({
-            name: [this.box.getName(), [Validators.required]],
-            notice: [this.box.getNotice()],
+            name: [this.box.name, [Validators.required]],
+            notice: [this.box.notice],
             submit: ['Update box']
           });
         });
@@ -42,12 +42,12 @@ export class EditBoxComponent implements OnInit {
       return;
     }
 
-    this.box.setName(form.controls['name'].value);
-    this.box.setNotice(form.controls['notice'].value);
+    this.box.name = form.controls['name'].value;
+    this.box.notice = form.controls['notice'].value;
 
     this.boxService.updateBox(this.box)
       .then(box => {
-        this.router.navigate(['/boxes', box.getId()]);
+        this.router.navigate(['/boxes', box.id]);
       })
       .catch(error => {
         this.isFailed = true;

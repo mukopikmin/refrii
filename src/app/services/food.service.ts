@@ -23,18 +23,12 @@ export class FoodService {
     return this.authHttp.get(`${this.endpoint}/foods/${id}`)
       .toPromise()
       .then(response => {
-        const json = response.json();
-        const food = new Food(json);
-        food.setBox(new Box(json.box));
-        food.setUnit(new Unit(json.unit));
-        food.setCreatedUser(new User(json.created_user));
-        food.setUpdatedUser(new User(json.updated_user));
-        return food;
+        return Food.parse(response.json());
       });
   }
 
   public getImage(food: Food): Promise<any> {
-    const url = `${this.endpoint}/foods/${food.getId()}/image`;
+    const url = `${this.endpoint}/foods/${food.id}/image`;
     const params: URLSearchParams = new URLSearchParams();
     params.set('base64', 'true');
 
@@ -53,18 +47,18 @@ export class FoodService {
     data.append('amount', amount.toString());
     data.append('expiration_date', this.datePipe.transform(expirationDate, 'yyyy-MM-dd'));
     data.append('image', image);
-    data.append('unit_id', unit.getId().toString());
-    data.append('box_id', box.getId().toString());
+    data.append('unit_id', unit.id.toString());
+    data.append('box_id', box.id.toString());
 
     return this.authHttp.post(url, data)
       .toPromise()
       .then(response => {
-        return new Food(response.json());
+        return Food.parse(response.json());
       });
   }
 
   public removeFood(food: Food): Promise<void> {
-    return this.authHttp.delete(`${this.endpoint}/foods/${food.getId()}`)
+    return this.authHttp.delete(`${this.endpoint}/foods/${food.id}`)
       .toPromise()
       .then(response => {
         return;
@@ -73,21 +67,17 @@ export class FoodService {
 
   public updateFood(food: Food): Promise<Food> {
     const data = new FormData();
-    data.append('name', food.getName());
-    data.append('notice', food.getNotice() || '');
-    data.append('amount', food.getAmount().toString());
-    data.append('expiration_date', this.datePipe.transform(food.getExpirationDate(), 'yyyy-MM-dd'));
-    data.append('needs_adding', String(food.isNeedsAdding()));
-    data.append('unit_id', food.getUnit().getId().toString());
+    data.append('name', food.name);
+    data.append('notice', food.notice || '');
+    data.append('amount', food.amount.toString());
+    data.append('expiration_date', this.datePipe.transform(food.expirationDate, 'yyyy-MM-dd'));
+    data.append('needs_adding', String(food.needsAdding));
+    data.append('unit_id', food.unit.id.toString());
 
-    return this.authHttp.put(`${this.endpoint}/foods/${food.getId()}`, data)
+    return this.authHttp.put(`${this.endpoint}/foods/${food.id}`, data)
       .toPromise()
       .then(response => {
-        const json = response.json();
-        const food = new Food(json);
-        food.setBox(new Box(json.box));
-        food.setUnit(new Unit(json.unit));
-        return food;
+        return Food.parse(response.json());
       })
   }
 }

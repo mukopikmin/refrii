@@ -20,7 +20,7 @@ export class HeaderComponent implements AfterContentChecked {
   ngAfterContentChecked() {
     const json = JSON.parse(localStorage.getItem('user'));
     if (json) {
-      this.user = new User(json);
+      this.user = User.parse(json);
     }
   }
 

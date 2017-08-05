@@ -34,14 +34,7 @@ export class BoxService {
       .toPromise()
       .then(response => {
         return response.json().map(json => {
-          const box =  new Box(json);
-          box.setUser(new User(json.owner));
-          box.setFoods(json.foods.map(food => {
-            return new Food(food);
-          }));
-          box.setInvitedUsers(json.invited_users.map(user => {
-            return new User(user);
-          }));
+          const box =  Box.parse(json);
           return box;
         });
       });
@@ -52,22 +45,14 @@ export class BoxService {
       .toPromise()
       .then(response => {
         const json = response.json();
-        const box = new Box(json);
-        box.setUser(new User(json.owner));
-        box.setFoods(json.foods.map(json => {
-          const food = new Food(json);
-          food.setUnit(new Unit(json.unit));
-          return food;
-        }));
-        box.setInvitedUsers(json.invited_users.map(user => {
-          return new User(user);
-        }));
+        const box = Box.parse(json);
+
         return box;
       });
   }
 
   public getImage(box: Box): Promise<any> {
-    const url = `${this.endpoint}/boxes/${box.getId()}/image`;
+    const url = `${this.endpoint}/boxes/${box.id}/image`;
     const params: URLSearchParams = new URLSearchParams();
     params.set('base64', 'true');
 
@@ -80,18 +65,14 @@ export class BoxService {
 
   public updateBox(box: Box): Promise<Box> {
     const data = new FormData();
-    data.append('name', box.getName());
-    data.append('notice', box.getNotice() || '');
+    data.append('name', box.name);
+    data.append('notice', box.notice || '');
 
-    return this.authHttp.put(`${this.endpoint}/boxes/${box.getId()}`, data)
+    return this.authHttp.put(`${this.endpoint}/boxes/${box.id}`, data)
       .toPromise()
       .then(response => {
         const json = response.json();
-        const box = new Box(json);
-        box.setUser(new User(json.owner));
-        box.setFoods(json.foods.map(json => {
-          return new Food(json);
-        }));
+        const box = Box.parse(json);
         return box;
       });
   }
@@ -104,12 +85,12 @@ export class BoxService {
     return this.authHttp.post(`${this.endpoint}/boxes`, data)
       .toPromise()
       .then(response => {
-        return new Box(response.json());
+        return Box.parse(response.json());
       });
   }
 
   public removeBox(box: Box): Promise<void> {
-    return this.authHttp.delete(`${this.endpoint}/boxes/${box.getId()}`)
+    return this.authHttp.delete(`${this.endpoint}/boxes/${box.id}`)
       .toPromise()
       .then(respones => {
         return;
@@ -117,9 +98,9 @@ export class BoxService {
   }
 
   public inviteUser(user: User, box: Box): Promise<void> {
-    const url = `${this.endpoint}/boxes/${box.getId()}/invite`;
+    const url = `${this.endpoint}/boxes/${box.id}/invite`;
     const data = new FormData();
-    data.append('user_id', user.getId().toString());
+    data.append('user_id', user.id.toString());
 
     return this.authHttp.post(url, data)
       .toPromise()

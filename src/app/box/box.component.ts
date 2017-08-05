@@ -32,11 +32,11 @@ export class BoxComponent implements OnInit {
       this.boxService.getBox(params['id'])
         .then(box => {
           this.box = box;
-          this.box.getFoods().forEach(food => {
-            if (food.getImageUrl()) {
+          this.box.foods.forEach(food => {
+            if (food.imageUrl) {
               this.foodService.getImage(food)
                 .then(image => {
-                  food.setBase64image(`data:${image.content_type};base64,${image.base64}`);
+                  food.base64image = `data:${image.content_type};base64,${image.base64}`;
                 });
             }
           });
@@ -45,13 +45,13 @@ export class BoxComponent implements OnInit {
   }
 
   createFood(): void {
-    this.router.navigate(['/boxes', this.box.getId(), 'foods', 'new']);
+    this.router.navigate(['/boxes', this.box.id, 'foods', 'new']);
   }
 
   removeFood(food: Food): void {
     this.foodService.removeFood(food)
       .then(() => {
-        return this.boxService.getBox(this.box.getId())
+        return this.boxService.getBox(this.box.id)
       })
       .then(box => this.box = box);
   }

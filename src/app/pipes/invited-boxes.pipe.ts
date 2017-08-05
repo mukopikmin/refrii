@@ -7,7 +7,7 @@ import { Box } from '../models/box';
 export class InvitedBoxesPipe implements PipeTransform {
   transform(boxes: Box[], isOwns: boolean): Box[] {
     return boxes.filter(box => {
-      return box.getIsInvited() == isOwns;
+      return box.isInvited == isOwns;
     });
   }
 }

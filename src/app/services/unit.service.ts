@@ -20,12 +20,12 @@ export class UnitService {
     if (box === null) {
       url = `${this.endpoint}/units`
     } else {
-      url = `${this.endpoint}/boxes/${box.getId()}/units`;
+      url = `${this.endpoint}/boxes/${box.id}/units`;
     }
     return this.authHttp.get(url)
       .toPromise()
       .then(response => {
-        return response.json().map(json => new Unit(json));
+        return response.json().map(json => Unit.parse(json));
       });
   }
 
@@ -37,12 +37,12 @@ export class UnitService {
     return this.authHttp.post(url, data)
       .toPromise()
       .then(response => {
-        return new Unit(response.json());
+        return Unit.parse(response.json());
       });
   }
 
   public removeUnit(unit: Unit): Promise<void> {
-    return this.authHttp.delete(`${this.endpoint}/units/${unit.getId()}`)
+    return this.authHttp.delete(`${this.endpoint}/units/${unit.id}`)
       .toPromise()
       .then(response => {
         return;

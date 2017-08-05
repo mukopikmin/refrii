@@ -34,14 +34,14 @@ export class EditFoodComponent implements OnInit {
       this.foodService.getFood(params['id'])
       .then(food => {
         this.food = food;
-        return this.unitService.getUnits(this.food.getBox());
+        return this.unitService.getUnits(this.food.box);
       })
       .then(units => {
         this.units = units
         this.form = this.formBuilder.group({
-          name: [this.food.getName(), [Validators.required]],
-          notice: [this.food.getNotice()],
-          unit: [this.food.getUnit().getId(), [Validators.required]],
+          name: [this.food.name, [Validators.required]],
+          notice: [this.food.notice],
+          unit: [this.food.unit.id, [Validators.required]],
           submit: ['Update food']
         });
       });
@@ -54,17 +54,17 @@ export class EditFoodComponent implements OnInit {
       return;
     }
 
-    const food = new Food(form.value);
-    food.setExpirationDate(this.food.getExpirationDate());
-    food.setId(this.food.getId());
-    food.setAmount(this.food.getAmount());
-    food.setUnit(this.units.filter(unit => {
-      return unit.getId() == form.value.unit;
-    })[0]);
+    const food = Food.parse(form.value);
+    food.expirationDate = this.food.expirationDate;
+    food.id = this.food.id;
+    food.amount = this.food.amount;
+    food.unit = this.units.filter(_unit => {
+      return _unit.id == form.value.unit;
+    })[0];
 
     this.foodService.updateFood(food)
       .then(food => {
-        this.router.navigate(['/foods', this.food.getId()]);
+        this.router.navigate(['/foods', this.food.id]);
       })
       .catch(error => this.isFailed = true);
   }

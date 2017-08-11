@@ -34,8 +34,7 @@ export class BoxService {
       .toPromise()
       .then(response => {
         return response.json().map(json => {
-          const box =  Box.parse(json);
-          return box;
+          return Box.parse(json);
         });
       });
   }
@@ -44,10 +43,7 @@ export class BoxService {
     return this.authHttp.get(`${this.endpoint}/boxes/${id}`)
       .toPromise()
       .then(response => {
-        const json = response.json();
-        const box = Box.parse(json);
-
-        return box;
+        return Box.parse(response.json());
       });
   }
 
@@ -71,9 +67,7 @@ export class BoxService {
     return this.authHttp.put(`${this.endpoint}/boxes/${box.id}`, data)
       .toPromise()
       .then(response => {
-        const json = response.json();
-        const box = Box.parse(json);
-        return box;
+        return Box.parse(response.json());
       });
   }
 

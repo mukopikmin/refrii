@@ -4,6 +4,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import { BoxService } from '../services/box.service';
 import { FoodService } from '../services/food.service';
+import { AuthService } from '../services/auth.service';
 import { Box } from '../models/box';
 import { Food } from '../models/food';
 
@@ -12,6 +13,7 @@ import { Food } from '../models/food';
   templateUrl: './box.component.html',
   styleUrls: ['./box.component.css'],
   providers: [
+    AuthService,
     BoxService,
     FoodService
   ]
@@ -24,6 +26,7 @@ export class BoxComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private modalService: NgbModal,
+    private authService: AuthService,
     private boxService: BoxService,
     private foodService: FoodService) { }
 
@@ -40,7 +43,8 @@ export class BoxComponent implements OnInit {
                 });
             }
           });
-        });
+        })
+        .catch(error => this.authService.signOut());
     });
   }
 
@@ -51,9 +55,10 @@ export class BoxComponent implements OnInit {
   removeFood(food: Food): void {
     this.foodService.removeFood(food)
       .then(() => {
-        return this.boxService.getBox(this.box.id)
+        return this.boxService.getBox(this.box.id);
       })
-      .then(box => this.box = box);
+      .then(box => this.box = box)
+      .catch(error => this.authService.signOut());
   }
 
   queryChange(event: any) {
@@ -61,11 +66,10 @@ export class BoxComponent implements OnInit {
   }
 
   modal(content) {
-    this.modalService.open(content).result.then((result) => {
+    this.modalService.open(content).result.then(result => {
       this.boxService.removeBox(this.box)
-      .then(() => {
-        this.router.navigate(['/boxes']);
-      });
+        .then(() => this.router.navigate(['/boxes']))
+        .catch(error => this.authService.signOut());
     })
     .catch(reason => {
       // Do nothing

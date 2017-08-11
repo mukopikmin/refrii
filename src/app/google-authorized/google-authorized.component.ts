@@ -20,6 +20,9 @@ export class GoogleAuthorizedComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.authService.googleAuth(params['state'], params['code']).then(credential => {
         localStorage.setItem('token', credential.jwt);
+        return this.authService.getSignedinUser();
+      })
+      .then(user => {
         this.router.navigate(['/boxes']);
       });
     });

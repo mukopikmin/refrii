@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { BoxService } from '../services/box.service';
 import { Box } from '../models/box';
@@ -12,6 +13,7 @@ import { User } from '../models/user';
   templateUrl: './invite.component.html',
   styleUrls: ['./invite.component.css'],
   providers: [
+    AuthService,
     UserService,
     BoxService
   ]
@@ -26,14 +28,16 @@ export class InviteComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
+    private authService: AuthService,
     private userService: UserService,
     private boxService: BoxService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.boxService.getBox(params['id']).then(box => {
-        this.box = box;
-      });
+      this.boxService.getBox(params['id'])
+        .then(box => this.box = box)
+        .catch(error => this.authService.signOut());
+
     });
     this.form = this.formBuilder.group({
       email: ['', [Validators.required]],
@@ -51,9 +55,7 @@ export class InviteComponent implements OnInit {
       .then(user => {
         return this.boxService.inviteUser(user, this.box);
       })
-      .then(() => {
-        this.router.navigate(['/user']);
-      })
+      .then(() => this.router.navigate(['/user']))
       .catch(error => console.log(error));
   }
 }

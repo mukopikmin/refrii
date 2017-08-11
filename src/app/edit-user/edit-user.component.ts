@@ -39,7 +39,8 @@ export class EditUserComponent implements OnInit {
           password_confirm: [],
           submit: ['Update account']
         });
-      });
+      })
+      .catch(error => this.authService.signOut());
   }
 
   public submit(form): void {
@@ -55,6 +56,6 @@ export class EditUserComponent implements OnInit {
       .then(user => {
         this.router.navigate(['/user']);
       })
-      .catch(error => { this.isFailed = true });
+      .catch(error => this.isFailed = true);
   }
 }

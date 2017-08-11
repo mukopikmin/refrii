@@ -44,7 +44,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.34"
-     inkscape:cx="1135.7143"
+     inkscape:cx="913.65548"
      inkscape:cy="365.15978"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -102,33 +102,39 @@
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <g
-       transform="matrix(1.506692,0,0,1.506692,-285.70233,-246.88055)"
+       transform="matrix(1.08939,0,0,1.08939,48.660546,-25.674704)"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#328ae9;fill-opacity:1;stroke:none;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="flowRoot4145">
       <path
          d="m 941.57227,485.11347 q 0,25.125 -14.25,43.875 -13.875,18.75 -39,28.5 l 82.125,98.25 -75.75,0 -68.625,-86.625 -11.25,0 0,86.625 -61.5,0 0,-249.75 79.5,0 q 23.25,0 43.125,4.875 19.875,4.875 34.5,14.625 14.625,9.75 22.875,24.75 8.25,14.625 8.25,34.875 z m -59.25,1.125 q 0,-16.875 -13.125,-24.75 -13.125,-8.25 -36.75,-8.25 l -17.625,0 0,70.125 15,0 q 24.75,0 38.625,-9.75 13.875,-9.75 13.875,-27.375 z"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:375px;line-height:125%;font-family:Seravek;-inkscape-font-specification:'Seravek Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#328ae9;fill-opacity:1;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none"
-         id="path4158" />
+         id="path4158"
+         inkscape:connector-curvature="0" />
       <path
          d="m 1072.3242,468.23847 q 36,0 57,21.375 21,21 21,58.5 0,14.25 -3.375,30.375 l -106.5,0 q 0.75,16.875 11.25,27.375 10.875,10.125 33,10.125 13.5,0 28.125,-2.25 15,-2.625 25.875,-7.5 l 7.5,38.625 q -14.25,7.125 -32.25,10.875 -17.625,3.75 -36.75,3.75 -24,0 -42.375,-6.75 -18.375,-7.125 -30.75,-19.5 -12.37498,-12.375 -18.74998,-29.625 -6.375,-17.25 -6.375,-38.25 0,-22.5 6.375,-40.5 6.75,-18 18.74998,-30.375 12.375,-12.75 29.625,-19.5 17.25,-6.75 38.625,-6.75 z m -1.875,38.25 q -14.25,0 -22.125,9.375 -7.5,9 -7.5,25.125 l 53.25,0 q 0.75,-3 0.75,-6.375 0,-12 -6.375,-19.875 -6.375,-8.25 -18,-8.25 z"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:375px;line-height:125%;font-family:Seravek;-inkscape-font-specification:'Seravek Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#328ae9;fill-opacity:1;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none"
-         id="path4160" />
+         id="path4160"
+         inkscape:connector-curvature="0" />
       <path
          d="m 1195.9336,655.73847 0,-138 -28.5,0 0,-45.75 28.5,0 0,-5.25 q 0,-40.875 21.375,-60 21.375,-19.5 56.625,-19.5 9,0 18.375,1.5 9.75,1.125 18,4.5 l -4.5,42.75 q -9,-2.625 -19.5,-2.625 -14.25,0 -22.5,6.75 -7.875,6.75 -7.875,24 l 0,7.875 42,0 0,45.75 -42,0 0,138 -60,0 z"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:375px;line-height:125%;font-family:Seravek;-inkscape-font-specification:'Seravek Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#328ae9;fill-opacity:1;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none"
-         id="path4162" />
+         id="path4162"
+         inkscape:connector-curvature="0" />
       <path
          d="m 1441.5762,523.73847 -7.125,0 q -35.625,0 -50.25,18 l 0,114 -60,0 0,-183.75 58.125,0 0,30.75 q 5.25,-15 16.125,-23.625 10.875,-8.625 28.5,-8.625 5.25,0 8.625,0.75 3.75,0.375 7.5,1.5 l -1.5,51 z"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:375px;line-height:125%;font-family:Seravek;-inkscape-font-specification:'Seravek Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#328ae9;fill-opacity:1;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none"
-         id="path4164" />
+         id="path4164"
+         inkscape:connector-curvature="0" />
       <path
          d="m 1467.0234,655.73847 0,-183.75 60,0 0,183.75 -60,0 z m -3.75,-237.375 q 0,-14.25 9.375,-24 9.375,-9.75 24.375,-9.75 15,0 24.375,9.75 9.375,9.75 9.375,24 0,14.25 -9.375,24 -9.375,9.75 -24.375,9.75 -15,0 -24.375,-9.75 -9.375,-9.75 -9.375,-24 z"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:375px;line-height:125%;font-family:Seravek;-inkscape-font-specification:'Seravek Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#328ae9;fill-opacity:1;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none"
-         id="path4166" />
+         id="path4166"
+         inkscape:connector-curvature="0" />
       <path
          d="m 1572.4922,655.73847 0,-183.75 60,0 0,183.75 -60,0 z m -3.75,-237.375 q 0,-14.25 9.375,-24 9.375,-9.75 24.375,-9.75 15,0 24.375,9.75 9.375,9.75 9.375,24 0,14.25 -9.375,24 -9.375,9.75 -24.375,9.75 -15,0 -24.375,-9.75 -9.375,-9.75 -9.375,-24 z"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:375px;line-height:125%;font-family:Seravek;-inkscape-font-specification:'Seravek Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#328ae9;fill-opacity:1;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none"
-         id="path4168" />
+         id="path4168"
+         inkscape:connector-curvature="0" />
     </g>
   </g>
 </svg>

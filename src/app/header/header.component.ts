@@ -18,15 +18,11 @@ export class HeaderComponent implements AfterContentChecked {
     private router: Router) { }
 
   ngAfterContentChecked() {
-    const json = JSON.parse(localStorage.getItem('user'));
-    if (json) {
-      this.user = User.parse(json);
-    }
+    this.user = this.authService.getUserFromStorage();
   }
 
   public signout(): void {
-    this.authService.signOut();
     this.user = null;
-    this.router.navigate(['/signin']);
+    this.authService.signOut();
   }
 }

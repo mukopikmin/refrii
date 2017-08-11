@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Params, ActivatedRoute, Router } from '@angular/router';
 
+import { AuthService } from '../services/auth.service';
 import { BoxService } from '../services/box.service';
 import { Box } from '../models/box';
 
@@ -9,7 +10,10 @@ import { Box } from '../models/box';
   selector: 'app-edit-box',
   templateUrl: './edit-box.component.html',
   styleUrls: ['./edit-box.component.css'],
-  providers: [BoxService]
+  providers: [
+    AuthService,
+    BoxService
+  ]
 })
 export class EditBoxComponent implements OnInit {
   public form: FormGroup;
@@ -20,6 +24,7 @@ export class EditBoxComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
+    private authService: AuthService,
     private boxService: BoxService) { }
 
   ngOnInit() {
@@ -32,7 +37,8 @@ export class EditBoxComponent implements OnInit {
             notice: [this.box.notice],
             submit: ['Update box']
           });
-        });
+        })
+        .catch(error => this.authService.signOut());
     });
   }
 
@@ -46,11 +52,7 @@ export class EditBoxComponent implements OnInit {
     this.box.notice = form.controls['notice'].value;
 
     this.boxService.updateBox(this.box)
-      .then(box => {
-        this.router.navigate(['/boxes', box.id]);
-      })
-      .catch(error => {
-        this.isFailed = true;
-      });
+      .then(box => this.router.navigate(['/boxes', box.id]))
+      .catch(error => this.isFailed = true);
   }
 }

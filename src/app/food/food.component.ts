@@ -6,6 +6,7 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
+import { AuthService } from '../services/auth.service';
 import { FoodService } from '../services/food.service';
 import { Food } from '../models/food';
 
@@ -15,6 +16,7 @@ import { Food } from '../models/food';
   styleUrls: ['./food.component.css'],
   providers: [
     DecimalPipe,
+    AuthService,
     FoodService
   ]
 })
@@ -35,6 +37,7 @@ export class FoodComponent implements OnInit {
     private decimalPipe: DecimalPipe,
     private datePipe: DatePipe,
     private modalService: NgbModal,
+    private authService: AuthService,
     private foodService: FoodService) { }
 
   ngOnInit() {
@@ -56,7 +59,8 @@ export class FoodComponent implements OnInit {
           expirationDate: [expirationDate, null],
           needsAdding: [food.needsAdding, Validators.required]
         });
-      });
+      })
+      .catch(error => this.authService.signOut());
     });
   }
 
@@ -106,24 +110,25 @@ export class FoodComponent implements OnInit {
     this.food.amount = this.form.value.amount;
 
     this.foodService.updateFood(this.food)
-    .then(food => {
-      this.success.next(`Food '${this.food.name}' is successfully updated.`);
-    })
-    .catch(error => {
-      this.success.next('Box name is required.');
-    });
+      .then(food => {
+        this.success.next(`Food '${this.food.name}' is successfully updated.`);
+      })
+      .catch(error => {
+        this.success.next('Box name is required.');
+      });
   }
 
   modal(content) {
-    this.modalService.open(content).result.then((result) => {
-      this.foodService.removeFood(this.food)
-        .then(() => {
-          this.router.navigate(['/boxes', this.food.box.id]);
-        });
-    })
-    .catch(reason => {
-      // Do nothing
-    });
+    this.modalService.open(content).result
+      .then((result) => {
+        this.foodService.removeFood(this.food)
+          .then(() => {
+            this.router.navigate(['/boxes', this.food.box.id]);
+          });
+      })
+      .catch(reason => {
+        // Do nothing
+      });
   }
 }
 

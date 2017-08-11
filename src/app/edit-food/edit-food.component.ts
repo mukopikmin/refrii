@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Params, ActivatedRoute, Router } from '@angular/router';
 
+import { AuthService } from '../services/auth.service';
 import { FoodService } from '../services/food.service';
 import { UnitService } from '../services/unit.service';
 import { Unit } from '../models/unit';
@@ -26,25 +27,27 @@ export class EditFoodComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private authService: AuthService,
     private foodService: FoodService,
     private unitService: UnitService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.foodService.getFood(params['id'])
-      .then(food => {
-        this.food = food;
-        return this.unitService.getUnits(this.food.box);
-      })
-      .then(units => {
-        this.units = units
-        this.form = this.formBuilder.group({
-          name: [this.food.name, [Validators.required]],
-          notice: [this.food.notice],
-          unit: [this.food.unit.id, [Validators.required]],
-          submit: ['Update food']
-        });
-      });
+        .then(food => {
+          this.food = food;
+          return this.unitService.getUnits(this.food.box);
+        })
+        .then(units => {
+          this.units = units
+          this.form = this.formBuilder.group({
+            name: [this.food.name, [Validators.required]],
+            notice: [this.food.notice],
+            unit: [this.food.unit.id, [Validators.required]],
+            submit: ['Update food']
+          });
+        })
+        .catch(error => this.authService.signOut());
     });
   }
 

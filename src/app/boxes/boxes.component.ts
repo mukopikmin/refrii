@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { AuthService } from '../services/auth.service';
 import { BoxService } from '../services/box.service';
 import { Box } from '../models/box';
 
@@ -8,7 +9,10 @@ import { Box } from '../models/box';
   selector: 'app-boxes',
   templateUrl: './boxes.component.html',
   styleUrls: ['./boxes.component.css'],
-  providers: [BoxService]
+  providers: [
+    AuthService,
+    BoxService
+  ]
 })
 export class BoxesComponent implements OnInit {
   public boxes: Box[];
@@ -16,19 +20,22 @@ export class BoxesComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private authService: AuthService,
     private boxService: BoxService) { }
 
   ngOnInit() {
-    this.boxService.getBoxes().then(boxes => {
-      this.boxes = boxes;
-      this.boxes.forEach(box => {
-        if (box.imageUrl) {
-          this.boxService.getImage(box).then(image => {
-            box.base64image = `data:${image.content_type};base64,${image.base64}`;
-          });
-        }
-      });
-    });
+    this.boxService.getBoxes()
+      .then(boxes => {
+        this.boxes = boxes;
+        this.boxes.forEach(box => {
+          if (box.imageUrl) {
+            this.boxService.getImage(box).then(image => {
+              box.base64image = `data:${image.content_type};base64,${image.base64}`;
+            });
+          }
+        });
+      })
+      .catch(error => this.authService.signOut());
   }
 
   public createBox(): void {

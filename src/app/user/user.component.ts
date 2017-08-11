@@ -50,7 +50,8 @@ export class UserComponent implements OnInit {
       .then(result => {
         this.ownBoxes = result[0];
         this.invitedBoxes = result[1];
-      });
+      })
+      .catch(error => this.authService.signOut());
     this.unitService.getUnits().then(units => this.units = units);
   }
 
@@ -59,7 +60,8 @@ export class UserComponent implements OnInit {
       .then(() => {
         return this.unitService.getUnits();
       })
-      .then(units => this.units = units);
+      .then(units => this.units = units)
+      .catch(error => this.authService.signOut());
   }
 
   public createUnit(): void {

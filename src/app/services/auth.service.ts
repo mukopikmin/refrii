@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams } from '@angular/http';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 import { AuthHttp } from 'angular2-jwt';
 import 'rxjs/add/operator/toPromise';
 
@@ -13,6 +14,7 @@ export class AuthService {
 
   constructor(
     private authHttp: AuthHttp,
+    private router: Router,
     private http: Http,
     private datePipe: DatePipe) { }
 
@@ -25,9 +27,19 @@ export class AuthService {
         });
     }
 
+    public getUserFromStorage(): User {
+      const user = localStorage.getItem('user');
+      if (user) {
+        return User.parse(JSON.parse(user));
+      } else {
+        return null;
+      }
+    }
+
     public signOut(): void {
       localStorage.removeItem('user');
       localStorage.removeItem('token');
+      this.router.navigate(['/signin']);
     }
 
     public signup(name: string, email: string, password: string, passwordConfirm: string): Promise<User> {

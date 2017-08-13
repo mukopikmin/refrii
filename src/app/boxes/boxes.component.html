@@ -28,7 +28,7 @@
           <img *ngIf="!box.base64image" src="/assets/noimage.svg">
           <img *ngIf="box.base64image" src="{{box.base64image}}">
         </div>
-        <div class="card-block">
+        <div class="card-body">
           <h5>
             <span *ngIf="box.isInvited">
               <fa name="chain-broken"></fa>
@@ -37,7 +37,7 @@
           </h5>
           <p class="card-text" [innerHtml]="box.notice | newlines"></p>
         </div>
-        <div *ngIf="box.foods.length == 0" class="card-block no-foods">
+        <div *ngIf="box.foods.length == 0" class="card-body no-foods">
           <p>No foods</p>
         </div>
         <ul class="list-group list-group-flush">
